@@ -131,9 +131,10 @@ function createBricks(){
 				continue;
 			}else{
 				ctx.beginPath();
-				ctx.strokeStyle = "#FF0000";
-				ctx.fillStyle = "#0000ff";
 				ctx.rect(bricks[k][l].x, bricks[k][l].y, 57, 28);
+				ctx.fillStyle = "#0000ff";
+				ctx.strokeStyle = "#FF0000";
+				ctx.fill();
 				ctx.stroke();
 			}
 		} 
