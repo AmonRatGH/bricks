@@ -1,0 +1,48 @@
+.title{
+    border-radius: 0.3em;
+    border: 0.6em double gray;
+    width: max-content;
+    margin: auto;
+	margin-bottom: 1em;
+}
+.title span{
+    padding: 0.2em;
+    color: red;
+    font-size: 175%;
+    display: inline-block;
+}
+.canvasDiv{
+	text-align: center;
+    width: max-content;
+    border: 0.6em double gray;
+	margin-top: 1em;
+	margin-bottom: 1em;
+    border-radius: 0.3em;
+	margin-left: 1em;
+	margin-right: 1em;
+	margin: auto;
+    
+}
+.play{
+	margin-top: 1em;
+	margin-bottom: 1em;
+	width: max-content;
+	border: 0.4em double gray;
+	border-radius: 0.3em;
+}
+.hintDiv{
+    border-radius: 0.3em;
+    border: 0.6em double gray;
+    width: max-content;
+    margin: auto;
+	margin-top: 1em;
+}
+.hint{
+    padding: 0.2em;
+    color: red;
+    font-size: 175%;
+    display:inline-block;
+}
+canvas{
+	border: 0.2em solid black;
+}
