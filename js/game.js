@@ -1,10 +1,8 @@
-var c = document.getElementById("bricks");
+var c = document.getElementById("bricksCanvas");
 var ctx = c.getContext("2d");
 var lives=3;
-var bricks={
-	
-};
-
+var bricks = createBricks();
+var score=0;
 var player={
 	x:325,
 	y:575,
@@ -23,11 +21,16 @@ var ballMove={
 	dx: 4,
 	dy: -4,
 };
-//var ball.x = c.width/2;
-//var ball.y = c.height-30;
-//var ballMove.dx = 2;
-//var ballMove.dy = -2;
+
 var radius=8;
+
+function mainFunction(){
+	setTimeout(function(){
+		ballMoveFunction();
+		clearBricks(bricks);
+		requestAnimationFrame(mainFunction);
+	},40/3);
+}
 
 function drawPlayer(){
 	setTimeout(function(){
@@ -40,27 +43,24 @@ function drawPlayer(){
 		ctx.fill();
 		ctx.stroke();
 		requestAnimationFrame(drawPlayer);
-	},10);
+	},40/3);
 }
 
 function ballMoveFunction(){
-		setTimeout(function(){
-			ctx.clearRect(0, 0, c.width, c.height);
-			drawBall();
-			if(ball.x + ballMove.dx > c.width || ball.x + ballMove.dx < 0) {
-				ballMove.dx = -ballMove.dx;
-			}
+	ctx.clearRect(0, 0, c.width, c.height);
+	drawBall();
+	if(ball.x + ballMove.dx > c.width || ball.x + ballMove.dx < 0) {
+		ballMove.dx = -ballMove.dx;
+	}
 
-			if(ball.y + ballMove.dy > c.height || ball.y + ballMove.dy < 0) {
-				ballMove.dy = -ballMove.dy;
-			}
-			if((ball.x>=player.x&&ball.x<=player.x+150)&&ball.y+1==player.y){
-				ballMove.dy = -ballMove.dy;
-			}
-			ball.x += ballMove.dx;
-			ball.y += ballMove.dy;
-			requestAnimationFrame(ballMoveFunction);
-		},10);
+	if(ball.y + ballMove.dy > c.height || ball.y + ballMove.dy < 0) {
+		ballMove.dy = -ballMove.dy;
+	}
+	if((ball.x>=player.x&&ball.x<=player.x+150)&&ball.y+1==player.y){
+		ballMove.dy = -ballMove.dy;
+	}
+	ball.x += ballMove.dx;
+	ball.y += ballMove.dy;
 }
 
 function drawBall(){
@@ -76,8 +76,6 @@ function resetGame(){
 	ctx.clearRect(0, 0, c.width, c.height);
 	start=false;
 	player.x=350;
-	clearInterval(int1);
-	clearInterval(int2);
 	console.log(start);
 }
 
@@ -106,40 +104,49 @@ function moveRight(x){
 }
 
 function createBricks(){
-	setTimeout(function(){
-		var bricks = new Array(5);
-		var value =62;
-		for (var i = 0; i < bricks.length; i++) { 
-			bricks[i] = new Array(14); 
-		}
-		for (var i = 0; i < bricks.length; i++) { 
-			for (var j = 0; j < bricks[i].length; j++) { 
-				bricks[i][j] = {
-					x:j*value,
-					y:i*(value/2) ,
-					pop: false,
-				};
-			} 
-		}
-		
-		for (var k = 0; k < bricks.length; k++) { 
-			for (var l = 0; l < bricks[k].length-1; l++) { 
-				if(bricks[k][l].pop==true){
-					continue;
-				}else{
-					ctx.beginPath();
-					ctx.rect(bricks[k][l].x, bricks[k][l].y, 57, 28);
-					ctx.fillStyle = "#0000ff";
-					ctx.strokeStyle = "#FF0000";
-					ctx.fill();
-					ctx.stroke();
-				}
-			} 
-		}
-		requestAnimationFrame(createBricks);
-	},10);
+	var bricks = new Array(5);
+	var value =62;
+	for (var i = 0; i < bricks.length; i++) { 
+		bricks[i] = new Array(14); 
+	}
+	for (var i = 0; i < bricks.length; i++) { 
+		for (var j = 0; j < bricks[i].length; j++) { 
+			bricks[i][j] = {
+				x:j*value,
+				y:i*(value/2) ,
+				pop: false,
+			};
+		} 
+	}
+	return bricks;
 }
 
+function clearBricks(bricks){
+	for (var k = 0; k < bricks.length; k++) { 
+		for (var l = 0; l < bricks[k].length-1; l++) { 
+			if(bricks[k][l].pop==false){
+				ctx.beginPath();
+				ctx.rect(bricks[k][l].x, bricks[k][l].y, 57, 28);
+				ctx.fillStyle = "#0000ff";
+				ctx.strokeStyle = "#FF0000";
+				ctx.fill();
+				ctx.stroke();
+			}
+		}
+	}
+	for (var k = 0; k < bricks.length; k++) { 
+		for (var l = 0; l < bricks[k].length-1; l++) {
+			if(ball.x>=bricks[k][l].x&&ball.x<=bricks[k][l].x+57&&ball.y<=bricks[k][l].y&&ball.y<=bricks[k][l].y+28){
+				if(bricks[k][l].pop==false){
+					ballMove.dy=-ballMove.dy;
+					score++;
+					document.getElementById("score").textContent="Score: "+score;
+					bricks[k][l].pop=true;
+				}
+			}
+		} 
+	}
+}
 document.onkeydown = function(event) {
 	if(start==true){
 		if(event.keyCode == 37){
@@ -159,3 +166,6 @@ document.onkeydown = function(event) {
 	}
 }
 
+function createBricks1(){
+	console.log(bricks);
+}
