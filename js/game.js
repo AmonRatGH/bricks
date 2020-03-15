@@ -18,8 +18,8 @@ var ball={
 	y: c.height-30,
 };
 var ballMove={
-	dx: 4,
-	dy: -4,
+	dx: 2,
+	dy: -2,
 };
 
 var radius=8;
@@ -29,7 +29,7 @@ function mainFunction(){
 		ballMoveFunction();
 		clearBricks(bricks);
 		requestAnimationFrame(mainFunction);
-	},40/3);
+	},10);
 }
 
 function drawPlayer(){
@@ -43,7 +43,7 @@ function drawPlayer(){
 		ctx.fill();
 		ctx.stroke();
 		requestAnimationFrame(drawPlayer);
-	},40/3);
+	},10);
 }
 
 function ballMoveFunction(){
@@ -80,27 +80,23 @@ function resetGame(){
 }
 
 function moveLeft(x){
-	if(start==true){
-		ctx.clearRect(x-1, 574, 153, 17);
-		ctx.beginPath();
-		ctx.rect(x-8, 575, 150, 15);
-		ctx.fillStyle = "#000000";
-		ctx.strokeStyle = "gray";
-		ctx.fill();
-		ctx.stroke();
-	}
+	ctx.clearRect(x-1, 574, 153, 17);
+	ctx.beginPath();
+	ctx.rect(x-8, 575, 150, 15);
+	ctx.fillStyle = "#000000";
+	ctx.strokeStyle = "gray";
+	ctx.fill();
+	ctx.stroke();
 }
 
 function moveRight(x){
-	if(start==true){
-		ctx.clearRect(x-1, 574, 153, 17);
-		ctx.beginPath();
-		ctx.rect(x+8, 575, 150, 15);
-		ctx.fillStyle = "#000000";
-		ctx.strokeStyle = "gray";
-		ctx.fill();
-		ctx.stroke();
-	}
+	ctx.clearRect(x-1, 574, 153, 17);
+	ctx.beginPath();
+	ctx.rect(x+8, 575, 150, 15);
+	ctx.fillStyle = "#000000";
+	ctx.strokeStyle = "gray";
+	ctx.fill();
+	ctx.stroke();
 }
 
 function createBricks(){
@@ -136,7 +132,7 @@ function clearBricks(bricks){
 	}
 	for (var k = 0; k < bricks.length; k++) { 
 		for (var l = 0; l < bricks[k].length-1; l++) {
-			if(ball.x>=bricks[k][l].x&&ball.x<=bricks[k][l].x+57&&ball.y<=bricks[k][l].y&&ball.y<=bricks[k][l].y+28){
+			if(ball.x>=bricks[k][l].x&&ball.x<=bricks[k][l].x+57&&ball.y>=bricks[k][l].y&&ball.y<=bricks[k][l].y+28){
 				if(bricks[k][l].pop==false){
 					ballMove.dy=-ballMove.dy;
 					score++;
@@ -148,21 +144,19 @@ function clearBricks(bricks){
 	}
 }
 document.onkeydown = function(event) {
-	if(start==true){
-		if(event.keyCode == 37){
-			if(player.x<0){
-				player.x=2;
-			}
-			moveLeft(player.x);
-			player.x=player.x-8;
+	if(event.keyCode == 37){
+		if(player.x<0){
+			player.x=2;
 		}
-		if(event.keyCode == 39){
-			if(player.x>646){
-				player.x=646;
-			}
-			moveRight(player.x);
-			player.x=player.x+8;
+		moveLeft(player.x);
+		player.x=player.x-8;
+	}
+	if(event.keyCode == 39){
+		if(player.x>646){
+			player.x=646;
 		}
+		moveRight(player.x);
+		player.x=player.x+8;
 	}
 }
 
