@@ -4,7 +4,7 @@ var lives=3;
 var bricks = createBricks();
 var score=0;
 var audio = new Audio('audio/Play_the_Game.mp3');
-var audio = new Audio('audio/Play_the_Game.mp3');
+var AOH = new Audio('audio/AEO.mp3');
 var player={
 	x:325,
 	y:575,
