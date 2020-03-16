@@ -2,7 +2,8 @@ var c = document.getElementById("bricksCanvas");
 var ctx = c.getContext("2d");
 var lives=3;
 var bricks = createBricks();
-var score=63
+var score=0;
+var audio = new Audio('audio/Play_the_Game.mp3');
 var audio = new Audio('audio/Play_the_Game.mp3');
 var player={
 	x:325,
@@ -159,6 +160,7 @@ function clearBricks(bricks){
 		for (var l = 0; l < bricks[k].length-1; l++) {
 			if(ball.x>=bricks[k][l].x&&ball.x<=bricks[k][l].x+57&&ball.y>=bricks[k][l].y&&ball.y<=bricks[k][l].y+28){
 				if(bricks[k][l].pop==false){
+					AOH.play();
 					ballMove.dy=-ballMove.dy;
 					score++;
 					document.getElementById("score").textContent="Score: "+score;
