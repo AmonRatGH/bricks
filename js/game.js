@@ -62,22 +62,22 @@ function ballMoveFunction(){
 			ballMove.dy=-Math.sqrt(6);
 			ballMove.dx=-Math.sqrt(2);
 		}
-		if(ball.x>=player.x&&ball.x<=player.x+60&&ball.y>=player.y&&ball.y<=player.y+15){
+		if(ball.x>=player.x+30&&ball.x<=player.x+60&&ball.y>=player.y&&ball.y<=player.y+15){
 			console.log("ddi");
 			ballMove.dy=-Math.sqrt(5);
 			ballMove.dx=-Math.sqrt(3);
 		}
-		if(ball.x>=player.x&&ball.x<=player.x+90&&ball.y>=player.y&&ball.y<=player.y+15){
+		if(ball.x>=player.x+60&&ball.x<=player.x+90&&ball.y>=player.y&&ball.y<=player.y+15){
 			console.log("ddi");
 			ballMove.dy=-Math.sqrt(4);
 			ballMove.dx=Math.sqrt(4);
 		}
-		if(ball.x>=player.x&&ball.x<=player.x+120&&ball.y>=player.y&&ball.y<=player.y+15){
+		if(ball.x>=player.x+90&&ball.x<=player.x+120&&ball.y>=player.y&&ball.y<=player.y+15){
 			console.log("ddi");
 			ballMove.dy=-Math.sqrt(5);
 			ballMove.dx=Math.sqrt(3);
 		}
-		if(ball.x>=player.x&&ball.x<=player.x+150&&ball.y>=player.y&&ball.y<=player.y+15){
+		if(ball.x>=player.x+120&&ball.x<=player.x+150&&ball.y>=player.y&&ball.y<=player.y+15){
 			console.log("ddi");
 			ballMove.dy=-Math.sqrt(6);
 			ballMove.dx=Math.sqrt(2);
