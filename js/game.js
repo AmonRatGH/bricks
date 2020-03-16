@@ -2,7 +2,8 @@ var c = document.getElementById("bricksCanvas");
 var ctx = c.getContext("2d");
 var lives=3;
 var bricks = createBricks();
-var score=0;
+var score=63
+var audio = new Audio('audio/Play_the_Game.mp3');
 var player={
 	x:325,
 	y:575,
@@ -42,7 +43,7 @@ function drawPlayer(){
 		ctx.strokeStyle = "gray";
 		ctx.fill();
 		ctx.stroke();
-		requestAnimationFrame(drawPlayer);
+		drawPlayerA = requestAnimationFrame(drawPlayer);
 	},10);
 }
 
@@ -163,6 +164,8 @@ function clearBricks(bricks){
 					document.getElementById("score").textContent="Score: "+score;
 					bricks[k][l].pop=true;
 					if(score==65){
+						setTimeout(function(){cancelAnimationFrame(main);},20);
+						setTimeout(function(){cancelAnimationFrame(drawPlayerA);},20);
 						document.getElementById("score").textContent="Congratz you won!";
 					}
 				}
@@ -186,7 +189,10 @@ document.onkeydown = function(event) {
 		player.x=player.x+8;
 	}
 }
-
+function playTheGame(){
+	audio.play();
+	audio.volume=0.4;
+}
 function createBricks1(){
 	console.log(bricks);
 }
