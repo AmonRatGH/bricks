@@ -162,6 +162,9 @@ function clearBricks(bricks){
 					score++;
 					document.getElementById("score").textContent="Score: "+score;
 					bricks[k][l].pop=true;
+					if(score==65){
+						document.getElementById("score").textContent="Congratz you won!";
+					}
 				}
 			}
 		} 
