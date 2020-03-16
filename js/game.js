@@ -4,7 +4,6 @@ var lives=3;
 var bricks = createBricks();
 var score=0;
 var audio = new Audio('audio/Play_the_Game.mp3');
-var AOH = new Audio('audio/AEO.mp3');
 var player={
 	x:325,
 	y:575,
@@ -25,6 +24,11 @@ var ballMove={
 };
 
 var radius=8;
+
+function mainMainFunction(){
+	setTimeout(function(){mainFunction();drawPlayer();},5000);
+	playTheGame();
+}
 
 function mainFunction(){
 	setTimeout(function(){
@@ -160,7 +164,6 @@ function clearBricks(bricks){
 		for (var l = 0; l < bricks[k].length-1; l++) {
 			if(ball.x>=bricks[k][l].x&&ball.x<=bricks[k][l].x+57&&ball.y>=bricks[k][l].y&&ball.y<=bricks[k][l].y+28){
 				if(bricks[k][l].pop==false){
-					AOH.play();
 					ballMove.dy=-ballMove.dy;
 					score++;
 					document.getElementById("score").textContent="Score: "+score;
