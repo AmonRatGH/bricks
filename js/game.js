@@ -137,11 +137,22 @@ function createBricks(){
 	}
 	for (var i = 0; i < bricks.length; i++) { 
 		for (var j = 0; j < bricks[i].length; j++) { 
-			bricks[i][j] = {
-				x:j*value,
-				y:i*(value/2) ,
-				pop: false,
-			};
+			var r=Math.random()*10+1
+			if(r<=2){
+				bricks[i][j] = {
+					x:j*value,
+					y:i*(value/2) ,
+					pop: false,
+					special: true,
+				};
+			}else{
+				bricks[i][j] = {
+					x:j*value,
+					y:i*(value/2) ,
+					pop: false,
+					special: false,
+				};
+			}
 		} 
 	}
 	return bricks;
@@ -151,9 +162,14 @@ function clearBricks(bricks){
 	for (var k = 0; k < bricks.length; k++) { 
 		for (var l = 0; l < bricks[k].length-1; l++) { 
 			if(bricks[k][l].pop==false){
+				var r=Math.random()*10+1;
 				ctx.beginPath();
 				ctx.rect(bricks[k][l].x, bricks[k][l].y, 57, 28);
-				ctx.fillStyle = "#0000ff";
+				if(bricks[k][l].special==true){
+					ctx.fillStyle = "#00ff99";
+				}else{
+					ctx.fillStyle = "#0000ff";
+				}
 				ctx.strokeStyle = "#FF0000";
 				ctx.fill();
 				ctx.stroke();
