@@ -14,7 +14,8 @@
 			<canvas id="bricksCanvas" width="800" height="600"></canvas><br/>
 			<button id="start" onclick="mainMainFunction();">Start</button><br/>
 			<button id="reset" onclick="resetGame();">Reset</button><br/>
-			<button id="123" onclick="createBricks1();">Reset</button><br/>
+			<button id="123" onclick="createBricks();clearBricks(bricks);">Reset</button><br/>
+			<button id="12342" onclick="createBricks1();">Console</button><br/>
 			<span id="score">Score: 0</span>
 		</div>
 		<div class="hintDiv">
@@ -22,8 +23,10 @@
 				What the items do:
 			</span>
 			<div class="hintImg">
-				
-			</div>
+				<img src="img/microphone_icon.png" alt="Freddie Mercury instrument" height="40" width="40" /><span class="hints" >Bar is 2x Bigger!</span>
+				<img src="img/guitar_icon.png" alt="Brian May Guitar" height="40" width="40" /> <span class="hints" >Ball is 2x Faster!</span>
+				<img src="img/drum_icon.png" alt="Roger Taylor instrument" height="40" width="40" /><span class="hints" >Ball is 2x Bigger!</span>
+				</div>
 		</div>
 	</body>
 	<footer>

@@ -4,6 +4,7 @@ var lives=3;
 var bricks = createBricks();
 var score=0;
 var audio = new Audio('audio/Play_the_Game.mp3');
+var level=1;
 var player={
 	x:325,
 	y:575,
@@ -63,30 +64,50 @@ function ballMoveFunction(){
 		ballMove.dy = -ballMove.dy;
 	}
 	if(ball.x>=player.x&&ball.x<=player.x+150&&ball.y>=player.y&&ball.y<=player.y+15){
-		if(ball.x>=player.x&&ball.x<=player.x+30&&ball.y>=player.y&&ball.y<=player.y+15){
-			console.log("ddi");
-			ballMove.dy=-Math.sqrt(6);
-			ballMove.dx=-Math.sqrt(2);
+		if(ball.x>=player.x&&ball.x<=player.x+15&&ball.y>=player.y&&ball.y<=player.y+15){
+			ballMove.dy=-1.5;
+			ballMove.dx=-4;
 		}
-		if(ball.x>=player.x+30&&ball.x<=player.x+60&&ball.y>=player.y&&ball.y<=player.y+15){
-			console.log("ddi");
-			ballMove.dy=-Math.sqrt(5);
-			ballMove.dx=-Math.sqrt(3);
+		if(ball.x>=player.x+15&&ball.x<=player.x+30&&ball.y>=player.y&&ball.y<=player.y+15){
+			ballMove.dy=-1.5;
+			ballMove.dx=-3;
 		}
-		if(ball.x>=player.x+60&&ball.x<=player.x+90&&ball.y>=player.y&&ball.y<=player.y+15){
-			console.log("ddi");
-			ballMove.dy=-Math.sqrt(4);
-			ballMove.dx=Math.sqrt(4);
+		if(ball.x>=player.x+30&&ball.x<=player.x+45&&ball.y>=player.y&&ball.y<=player.y+15){
+
+			ballMove.dy=-3;
+			ballMove.dx=-3;
 		}
-		if(ball.x>=player.x+90&&ball.x<=player.x+120&&ball.y>=player.y&&ball.y<=player.y+15){
-			console.log("ddi");
-			ballMove.dy=-Math.sqrt(5);
-			ballMove.dx=Math.sqrt(3);
+		if(ball.x>=player.x+45&&ball.x<=player.x+60&&ball.y>=player.y&&ball.y<=player.y+15){
+			ballMove.dy=-3.5;
+			ballMove.dx=-1;
 		}
-		if(ball.x>=player.x+120&&ball.x<=player.x+150&&ball.y>=player.y&&ball.y<=player.y+15){
-			console.log("ddi");
-			ballMove.dy=-Math.sqrt(6);
-			ballMove.dx=Math.sqrt(2);
+		if(ball.x>=player.x+60&&ball.x<=player.x+70&&ball.y>=player.y&&ball.y<=player.y+15){
+			ballMove.dy=-3.7;
+			ballMove.dx=-0.5;
+		}
+		if(ball.x>=player.x+70&&ball.x<=player.x+80&&ball.y>=player.y&&ball.y<=player.y+15){
+			ballMove.dy=-4;
+			ballMove.dx=0;
+		}
+		if(ball.x>=player.x+80&&ball.x<=player.x+90&&ball.y>=player.y&&ball.y<=player.y+15){
+			ballMove.dy=-3.7;
+			ballMove.dx=0.5;
+		}
+		if(ball.x>=player.x+90&&ball.x<=player.x+105&&ball.y>=player.y&&ball.y<=player.y+15){
+			ballMove.dy=-3.5;
+			ballMove.dx=1;
+		}
+		if(ball.x>=player.x+105&&ball.x<=player.x+120&&ball.y>=player.y&&ball.y<=player.y+15){
+			ballMove.dy=-3;
+			ballMove.dx=3;
+		}
+		if(ball.x>=player.x+120&&ball.x<=player.x+135&&ball.y>=player.y&&ball.y<=player.y+15){
+			ballMove.dy=2;
+			ballMove.dx=3;
+		}
+		if(ball.x>=player.x+135&&ball.x<=player.x+150&&ball.y>=player.y&&ball.y<=player.y+15){
+			ballMove.dy=-1.5;
+			ballMove.dx=4;
 		}
 	}
 	ball.x += ballMove.dx;
@@ -130,22 +151,39 @@ function moveRight(x){
 }
 
 function createBricks(){
-	var bricks = new Array(5);
+	var bricks = new Array(8);
 	var value =62;
 	for (var i = 0; i < bricks.length; i++) { 
 		bricks[i] = new Array(14); 
 	}
 	for (var i = 0; i < bricks.length; i++) { 
 		for (var j = 0; j < bricks[i].length; j++) { 
-			var r=Math.random()*10+1
-			if(r<=2){
+			var r=Math.random()*10+1;
+			if(i+j<=3||j-i>=9){
+				bricks[i][j] = {
+					x:j*value,
+					y:i*(value/2) ,
+					pop: true,
+					special: false,
+				};
+			}
+			else if((i==6&&(j==2||j==3||j==11||j==10))||(i==7&&(j==2||j==3||j==11||j==10))){
 				bricks[i][j] = {
 					x:j*value,
 					y:i*(value/2) ,
 					pop: false,
-					special: true,
+					special: false,
 				};
-			}else{
+			}
+			else if(i==bricks.length-1||i==bricks.lenght-2){
+				bricks[i][j] = {
+					x:j*value,
+					y:i*(value/2) ,
+					pop: true,
+					special: false,
+				};
+			}
+			else{
 				bricks[i][j] = {
 					x:j*value,
 					y:i*(value/2) ,
