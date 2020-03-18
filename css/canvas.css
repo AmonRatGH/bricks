@@ -67,3 +67,8 @@
 .hints{
 	font-size:150%;
 }
+.copyright{
+	position: fixed;
+	bottom: 0;
+	right: 0;
+}
