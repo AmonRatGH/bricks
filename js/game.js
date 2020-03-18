@@ -2,12 +2,15 @@ var c = document.getElementById("bricksCanvas");
 var ctx = c.getContext("2d");
 var lives=3;
 var bricks = createBricks();
+
 var score=0;
-var audio = new Audio('audio/Play_the_Game.mp3');
+var mainAudio = new Audio('audio/Play_the_Game.mp3');
+var mainAudio2 = new Audio('audio/Coming_Soon.mp3');
+var coin = new Audio('audio/coin.wav');
 var level=1;
 var player={
 	x:325,
-	y:575,
+	y:c.height-30,
 };
 var start=true;
 var test={
@@ -17,7 +20,7 @@ var test={
 
 var ball={
 	x: c.width/2,
-	y: c.height-30,
+	y: c.height-40,
 };
 var ballMove={
 	dx: 3,
@@ -28,13 +31,14 @@ var radius=8;
 
 function mainMainFunction(){
 	setTimeout(function(){mainFunction();drawPlayer();},5000);
+	player.x==325;
 	playTheGame();
 }
 
 function mainFunction(){
 	setTimeout(function(){
 		ballMoveFunction();
-		clearBricks(bricks);
+		clearBricks();
 		requestAnimationFrame(mainFunction);
 	},10);
 }
@@ -42,6 +46,12 @@ function mainFunction(){
 function drawPlayer(){
 	setTimeout(function(){
 		document.getElementById("start").disabled = true;
+		if(player.x>646){
+			player.x=646;
+		}
+		if(player.x<0){
+			player.x=2;
+		}
 		ctx.beginPath();
 		ctx.rect(player.x, player.y, 150, 15);
 		ctx.lineWidth=2;
@@ -69,8 +79,8 @@ function ballMoveFunction(){
 			ballMove.dx=-4;
 		}
 		if(ball.x>=player.x+15&&ball.x<=player.x+30&&ball.y>=player.y&&ball.y<=player.y+15){
-			ballMove.dy=-1.5;
-			ballMove.dx=-3;
+			ballMove.dy=-2;
+			ballMove.dx=-3.2;
 		}
 		if(ball.x>=player.x+30&&ball.x<=player.x+45&&ball.y>=player.y&&ball.y<=player.y+15){
 
@@ -82,15 +92,15 @@ function ballMoveFunction(){
 			ballMove.dx=-1;
 		}
 		if(ball.x>=player.x+60&&ball.x<=player.x+70&&ball.y>=player.y&&ball.y<=player.y+15){
-			ballMove.dy=-3.7;
+			ballMove.dy=-4;
 			ballMove.dx=-0.5;
 		}
 		if(ball.x>=player.x+70&&ball.x<=player.x+80&&ball.y>=player.y&&ball.y<=player.y+15){
-			ballMove.dy=-4;
+			ballMove.dy=-4.3;
 			ballMove.dx=0;
 		}
 		if(ball.x>=player.x+80&&ball.x<=player.x+90&&ball.y>=player.y&&ball.y<=player.y+15){
-			ballMove.dy=-3.7;
+			ballMove.dy=-4;
 			ballMove.dx=0.5;
 		}
 		if(ball.x>=player.x+90&&ball.x<=player.x+105&&ball.y>=player.y&&ball.y<=player.y+15){
@@ -103,7 +113,7 @@ function ballMoveFunction(){
 		}
 		if(ball.x>=player.x+120&&ball.x<=player.x+135&&ball.y>=player.y&&ball.y<=player.y+15){
 			ballMove.dy=2;
-			ballMove.dx=3;
+			ballMove.dx=3.2;
 		}
 		if(ball.x>=player.x+135&&ball.x<=player.x+150&&ball.y>=player.y&&ball.y<=player.y+15){
 			ballMove.dy=-1.5;
@@ -128,26 +138,6 @@ function resetGame(){
 	start=false;
 	player.x=350;
 	console.log(start);
-}
-
-function moveLeft(x){
-	ctx.clearRect(x-1, 574, 153, 17);
-	ctx.beginPath();
-	ctx.rect(x-8, 575, 150, 15);
-	ctx.fillStyle = "#000000";
-	ctx.strokeStyle = "gray";
-	ctx.fill();
-	ctx.stroke();
-}
-
-function moveRight(x){
-	ctx.clearRect(x-1, 574, 153, 17);
-	ctx.beginPath();
-	ctx.rect(x+8, 575, 150, 15);
-	ctx.fillStyle = "#000000";
-	ctx.strokeStyle = "gray";
-	ctx.fill();
-	ctx.stroke();
 }
 
 function createBricks(){
@@ -175,7 +165,7 @@ function createBricks(){
 					special: false,
 				};
 			}
-			else if(i==bricks.length-1||i==bricks.lenght-2){
+			else if(i==bricks.length-1){
 				bricks[i][j] = {
 					x:j*value,
 					y:i*(value/2) ,
@@ -196,19 +186,24 @@ function createBricks(){
 	return bricks;
 }
 
-function clearBricks(bricks){
+function clearBricks(){
 	for (var k = 0; k < bricks.length; k++) { 
 		for (var l = 0; l < bricks[k].length-1; l++) { 
 			if(bricks[k][l].pop==false){
 				var r=Math.random()*10+1;
 				ctx.beginPath();
 				ctx.rect(bricks[k][l].x, bricks[k][l].y, 57, 28);
-				if(bricks[k][l].special==true){
-					ctx.fillStyle = "#00ff99";
-				}else{
+				if((k==1||k==2)&&(l==4||l==5||l==7||l==8)||(k==2&&(l==3||l==9))){
+					ctx.fillStyle = "#ffffff";
+				}
+				else if((k==6||k==7)&&(l==2||l==3||l==10||l==11)){
+					ctx.fillStyle = "#000000";
+				}
+				else{
 					ctx.fillStyle = "#0000ff";
 				}
-				ctx.strokeStyle = "#FF0000";
+				ctx.strokeStyle = "#000000";
+				ctx.lineWidth="2";
 				ctx.fill();
 				ctx.stroke();
 			}
@@ -220,9 +215,10 @@ function clearBricks(bricks){
 				if(bricks[k][l].pop==false){
 					ballMove.dy=-ballMove.dy;
 					score++;
+					coin.play();
 					document.getElementById("score").textContent="Score: "+score;
 					bricks[k][l].pop=true;
-					if(score==65){
+					if(score==75){
 						setTimeout(function(){cancelAnimationFrame(main);},20);
 						setTimeout(function(){cancelAnimationFrame(drawPlayerA);},20);
 						document.getElementById("score").textContent="Congratz you won!";
@@ -232,26 +228,32 @@ function clearBricks(bricks){
 		} 
 	}
 }
-document.onkeydown = function(event) {
-	if(event.keyCode == 37){
-		if(player.x<0){
-			player.x=2;
-		}
-		moveLeft(player.x);
-		player.x=player.x-8;
+document.onkeydown = function(e) {
+	if(e.keyCode == 37){
+		e.preventDefault()
+		player.x=player.x-10;
 	}
-	if(event.keyCode == 39){
-		if(player.x>646){
-			player.x=646;
-		}
-		moveRight(player.x);
-		player.x=player.x+8;
+	else if(e.keyCode == 39){
+		e.preventDefault()
+		player.x=player.x+10;
 	}
 }
 function playTheGame(){
-	audio.play();
-	audio.volume=0.4;
+	mainAudio.play();
+	setTimeout(function(){mainAudio2.play();}, (mainAudio.duration)+1000);
+	mainAudio.volume=0.4;
 }
+
+function timer(){
+	var time=5;
+	document.getElementById("startNumbers").textContent = time+"..";
+	setTimeout(function(){clearInterval(x);document.getElementById("startNumbers").style.visibility = "hidden";},5000);
+	var x = setInterval(function(){
+		time--;
+		document.getElementById("startNumbers").textContent = time+"..";
+	},1000);
+};
+
 function createBricks1(){
 	console.log(bricks);
 }
