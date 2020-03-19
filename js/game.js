@@ -1,8 +1,9 @@
 var c = document.getElementById("bricksCanvas");
 var ctx = c.getContext("2d");
 var lives=3;
-var bricks = createBricks();
-
+var bricks;
+var requiredScore;
+var mainFun;
 var score=0;
 var mainAudio = new Audio('audio/Play_the_Game.mp3');
 var mainAudio2 = new Audio('audio/Coming_Soon.mp3');
@@ -11,6 +12,8 @@ var level=1;
 var player={
 	x:325,
 	y:c.height-30,
+	width: 150,
+	height: 15,
 };
 var start=true;
 var test={
@@ -30,8 +33,17 @@ var ballMove={
 var radius=8;
 
 function mainMainFunction(){
+	document.getElementById("score").textContent="Score: "+score;
+	switch(level){
+		case 1:bricks = createBricks();requiredScore=75;break;
+		case 2:break;
+		case 3:break;
+		case 4:break;
+		case 5:break;
+	}
+	document.getElementById("start").disabled = true;
+	lives=3;
 	setTimeout(function(){mainFunction();drawPlayer();},5000);
-	player.x==325;
 	playTheGame();
 }
 
@@ -39,27 +51,37 @@ function mainFunction(){
 	setTimeout(function(){
 		ballMoveFunction();
 		clearBricks();
-		requestAnimationFrame(mainFunction);
+		if(lives==0){
+			score=0;
+			ctx.clearRect(0,0,c.width,c.height);
+			document.getElementById("start").disabled = false;
+			return;
+		}
+		mainFun = requestAnimationFrame(mainFunction);
 	},10);
 }
 
 function drawPlayer(){
 	setTimeout(function(){
-		document.getElementById("start").disabled = true;
 		if(player.x>646){
 			player.x=646;
 		}
 		if(player.x<0){
 			player.x=2;
 		}
-		ctx.beginPath();
-		ctx.rect(player.x, player.y, 150, 15);
-		ctx.lineWidth=2;
-		ctx.fillStyle = "#000000";
-		ctx.strokeStyle = "gray";
-		ctx.fill();
-		ctx.stroke();
-		drawPlayerA = requestAnimationFrame(drawPlayer);
+		if(lives==0){
+			return;
+		}
+			ctx.beginPath();
+			ctx.rect(player.x, player.y, player.width, player.height);
+			ctx.lineWidth=2;
+			ctx.fillStyle = "#000000";
+			ctx.strokeStyle = "gray";
+			ctx.fill();
+			ctx.stroke();
+		if(score!==requiredScore){
+			drawPlayerA = requestAnimationFrame(drawPlayer);
+		}
 	},10);
 }
 
@@ -73,7 +95,7 @@ function ballMoveFunction(){
 	if(ball.y + ballMove.dy > c.height || ball.y + ballMove.dy < 0) {
 		ballMove.dy = -ballMove.dy;
 	}
-	if(ball.x>=player.x&&ball.x<=player.x+150&&ball.y>=player.y&&ball.y<=player.y+15){
+	if(ball.x>=player.x&&ball.x<=player.x+player.width&&ball.y>=player.y&&ball.y<=player.y+player.height){//How the ball bounces from the 'player', different area of the bar equals to different angle of the bounce
 		if(ball.x>=player.x&&ball.x<=player.x+15){
 			ballMove.dy=-1.5;
 			ballMove.dx=-4;
@@ -118,6 +140,19 @@ function ballMoveFunction(){
 		if(ball.x>=player.x+135&&ball.x<=player.x+150){
 			ballMove.dy=-1.5;
 			ballMove.dx=4;
+		}
+	}
+	else if(ball.y>640){
+		console.log("x");
+		lives--;
+		ball.x=c.width/2;
+		ball.y=c.height-40;
+		player.x=325;
+		ballMove.dx=3;
+		ballMove.dy=-2.9;
+		document.getElementById("lives").textContent="Lives: "+lives;
+		if(lives==0){//With no lives you die
+			cancelAnimationFrame(drawPlayerA);
 		}
 	}
 	ball.x += ballMove.dx;
@@ -227,8 +262,8 @@ function clearBricks(){
 					coin.play();
 					document.getElementById("score").textContent="Score: "+score;
 					bricks[k][l].pop=true;
-					if(score==75){
-						setTimeout(function(){cancelAnimationFrame(main);},20);
+					if(score==requiredScore){
+						setTimeout(function(){cancelAnimationFrame(mainFun);},20);
 						setTimeout(function(){cancelAnimationFrame(drawPlayerA);},20);
 						document.getElementById("score").textContent="Congratz you won!";
 					}
@@ -256,6 +291,7 @@ function playTheGame(){
 
 function timer(){
 	var time=5;
+	document.getElementById("startNumbers").style.visibility = "visible";
 	document.getElementById("startNumbers").textContent = time+"..";
 	setTimeout(function(){clearInterval(x);document.getElementById("startNumbers").style.visibility = "hidden";},5000);
 	var x = setInterval(function(){

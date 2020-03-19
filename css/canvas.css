@@ -15,6 +15,18 @@
     font-size: 175%;
     display: inline-block;
 }
+.score{
+	position:relative;
+	font-family: innunedo;
+	font-size: 150%;
+	float:right;
+}
+.lives{
+	position:relative;
+	font-family: innunedo;
+	font-size: 150%;
+	float:left;
+}
 .canvasDiv{
 	text-align: center;
     width: max-content;
@@ -42,7 +54,16 @@
 
 }
 .buttons{
-	margin-top:2em;
+	margin-top:1em;
+}
+.button{
+	font-family: innuendo;
+	font-size: 105%;
+	background-color:lightblue;
+	margin:0.1em;
+	width:30em;
+	border-radius:0.2em;
+	border:0.2em solid black;
 }
 .play{
 	margin-top: 1em;

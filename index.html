@@ -11,6 +11,8 @@
 			<span class="titleText">Queen Bricks</span>
 		</div> -->
 		<div class="canvasDiv">
+			<span id="score" class="score" >Score: 0</span>
+			<span id="lives" class="lives" >Lives: 3</span><br/>
 			<canvas id="bricksCanvas" width="800" height="650" ></canvas><br/>
 			<hr></hr>
 			<div class="startTextDiv" >
@@ -19,11 +21,10 @@
 			<div class="buttons">
 				<button id="left" class="mobileArrow">&larr;</button>
 				<button id="right" class="mobileArrow">&rarr;</button><br/>
-				<button id="start" onclick="mainMainFunction();timer();" >Start</button><br/>
-				<button id="reset" onclick="resetGame();" >Reset</button><br/>
-				<button id="123" onclick="createBricks();clearBricks(bricks);" >Reset</button><br/>
-				<button id="12342" onclick="createBricks1();" >Console</button><br/>
-				<span id="score">Score: 0</span>
+				<button id="start" class="button" onclick="mainMainFunction();timer();" >Start</button><br/>
+				<button id="reset" class="button" onclick="resetGame();" >Reset</button><br/>
+				<button id="123" class="button" onclick="createBricks();clearBricks(bricks);" >Reset</button><br/>
+				<button id="12342"  class="button" onclick="createBricks1();" >Console</button><br/>
 			</div>
 			<img id="muteImg" class="muteBtn" src="img/audio_icon.png" alt="audio" height="40" width="40" onClick="mute();">
 		</div>
