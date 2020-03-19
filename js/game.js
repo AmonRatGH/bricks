@@ -23,8 +23,8 @@ var ball={
 	y: c.height-40,
 };
 var ballMove={
-	dx: 1,
-	dy: -1,
+	dx: 3,
+	dy: -2.9,
 };
 
 var radius=8;
