@@ -67,8 +67,23 @@
 .hints{
 	font-size:150%;
 }
+.mobileArrow{
+	display: none;
+	background-color: red;
+	width:4em;
+	height:2em;
+}
 .copyright{
 	position: fixed;
 	bottom: 0;
 	right: 0;
+}
+.muteBtn{
+	cursor: pointer;
+}
+
+@media (pointer:none), (pointer:coarse) {
+	.mobileArrow {
+		display: inline;
+	}
 }

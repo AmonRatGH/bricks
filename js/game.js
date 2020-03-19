@@ -23,8 +23,8 @@ var ball={
 	y: c.height-40,
 };
 var ballMove={
-	dx: 3,
-	dy: -3,
+	dx: 1,
+	dy: -1,
 };
 
 var radius=8;
@@ -74,48 +74,48 @@ function ballMoveFunction(){
 		ballMove.dy = -ballMove.dy;
 	}
 	if(ball.x>=player.x&&ball.x<=player.x+150&&ball.y>=player.y&&ball.y<=player.y+15){
-		if(ball.x>=player.x&&ball.x<=player.x+15&&ball.y>=player.y&&ball.y<=player.y+15){
+		if(ball.x>=player.x&&ball.x<=player.x+15){
 			ballMove.dy=-1.5;
 			ballMove.dx=-4;
 		}
-		if(ball.x>=player.x+15&&ball.x<=player.x+30&&ball.y>=player.y&&ball.y<=player.y+15){
+		if(ball.x>=player.x+15&&ball.x<=player.x+30){
 			ballMove.dy=-2;
 			ballMove.dx=-3.2;
 		}
-		if(ball.x>=player.x+30&&ball.x<=player.x+45&&ball.y>=player.y&&ball.y<=player.y+15){
+		if(ball.x>=player.x+30&&ball.x<=player.x+45){
 
 			ballMove.dy=-3;
 			ballMove.dx=-3;
 		}
-		if(ball.x>=player.x+45&&ball.x<=player.x+60&&ball.y>=player.y&&ball.y<=player.y+15){
+		if(ball.x>=player.x+45&&ball.x<=player.x+60){
 			ballMove.dy=-3.5;
 			ballMove.dx=-1;
 		}
-		if(ball.x>=player.x+60&&ball.x<=player.x+70&&ball.y>=player.y&&ball.y<=player.y+15){
+		if(ball.x>=player.x+60&&ball.x<=player.x+70){
 			ballMove.dy=-4;
 			ballMove.dx=-0.5;
 		}
-		if(ball.x>=player.x+70&&ball.x<=player.x+80&&ball.y>=player.y&&ball.y<=player.y+15){
+		if(ball.x>=player.x+70&&ball.x<=player.x+80){
 			ballMove.dy=-4.3;
 			ballMove.dx=0;
 		}
-		if(ball.x>=player.x+80&&ball.x<=player.x+90&&ball.y>=player.y&&ball.y<=player.y+15){
+		if(ball.x>=player.x+80&&ball.x<=player.x+905){
 			ballMove.dy=-4;
 			ballMove.dx=0.5;
 		}
-		if(ball.x>=player.x+90&&ball.x<=player.x+105&&ball.y>=player.y&&ball.y<=player.y+15){
+		if(ball.x>=player.x+90&&ball.x<=player.x+105){
 			ballMove.dy=-3.5;
 			ballMove.dx=1;
 		}
-		if(ball.x>=player.x+105&&ball.x<=player.x+120&&ball.y>=player.y&&ball.y<=player.y+15){
+		if(ball.x>=player.x+105&&ball.x<=player.x+120){
 			ballMove.dy=-3;
 			ballMove.dx=3;
 		}
-		if(ball.x>=player.x+120&&ball.x<=player.x+135&&ball.y>=player.y&&ball.y<=player.y+15){
+		if(ball.x>=player.x+120&&ball.x<=player.x+135){
 			ballMove.dy=2;
 			ballMove.dx=3.2;
 		}
-		if(ball.x>=player.x+135&&ball.x<=player.x+150&&ball.y>=player.y&&ball.y<=player.y+15){
+		if(ball.x>=player.x+135&&ball.x<=player.x+150){
 			ballMove.dy=-1.5;
 			ballMove.dx=4;
 		}
@@ -142,7 +142,7 @@ function resetGame(){
 
 function createBricks(){
 	var bricks = new Array(8);
-	var value =62;
+	var value = 60;
 	for (var i = 0; i < bricks.length; i++) { 
 		bricks[i] = new Array(14); 
 	}
@@ -155,30 +155,34 @@ function createBricks(){
 					y:i*(value/2) ,
 					pop: true,
 					special: false,
+					size: value,
 				};
 			}
 			else if((i==6&&(j==2||j==3||j==11||j==10))||(i==7&&(j==2||j==3||j==11||j==10))){
 				bricks[i][j] = {
-					x:j*value,
+					x:j*value+10,
 					y:i*(value/2) ,
 					pop: false,
 					special: false,
+					size: value,
 				};
 			}
 			else if(i==bricks.length-1){
 				bricks[i][j] = {
-					x:j*value,
+					x:j*value+10,
 					y:i*(value/2) ,
 					pop: true,
 					special: false,
+					size: value,
 				};
 			}
 			else{
 				bricks[i][j] = {
-					x:j*value,
+					x:j*value+10,
 					y:i*(value/2) ,
 					pop: false,
 					special: false,
+					size: value,
 				};
 			}
 		} 
@@ -192,7 +196,7 @@ function clearBricks(){
 			if(bricks[k][l].pop==false){
 				var r=Math.random()*10+1;
 				ctx.beginPath();
-				ctx.rect(bricks[k][l].x, bricks[k][l].y, 57, 28);
+				ctx.rect(bricks[k][l].x, bricks[k][l].y, bricks[k][l].size, 28);
 				if((k==1||k==2)&&(l==4||l==5||l==7||l==8)||(k==2&&(l==3||l==9))){
 					ctx.fillStyle = "#ffffff";
 				}
@@ -200,7 +204,7 @@ function clearBricks(){
 					ctx.fillStyle = "#000000";
 				}
 				else{
-					ctx.fillStyle = "#0000ff";
+					ctx.fillStyle = "red";
 				}
 				ctx.strokeStyle = "#000000";
 				ctx.lineWidth="2";
@@ -211,9 +215,14 @@ function clearBricks(){
 	}
 	for (var k = 0; k < bricks.length; k++) { 
 		for (var l = 0; l < bricks[k].length-1; l++) {
-			if(ball.x>=bricks[k][l].x&&ball.x<=bricks[k][l].x+57&&ball.y>=bricks[k][l].y&&ball.y<=bricks[k][l].y+28){
+			if(ball.x>=bricks[k][l].x&&ball.x<=bricks[k][l].x+bricks[k][l].size&&ball.y>=bricks[k][l].y&&ball.y<=bricks[k][l].y+28){
 				if(bricks[k][l].pop==false){
-					ballMove.dy=-ballMove.dy;
+					if((ball.x>=bricks[k][l].x&&ball.x<=bricks[k][l].x+3)||(ball.x<=bricks[k][l].x+bricks[k][l].size&&ball.x>=bricks[k][l].x+54)){
+						ballMove.dx=-ballMove.dx;
+						ballMove.dy=ballMove.dy;
+					}else{
+						ballMove.dy=-ballMove.dy;
+					}
 					score++;
 					coin.play();
 					document.getElementById("score").textContent="Score: "+score;
@@ -239,8 +248,9 @@ document.onkeydown = function(e) {
 	}
 }
 function playTheGame(){
-	mainAudio.play();
-	setTimeout(function(){mainAudio2.play();}, (mainAudio.duration)+1000);
+	mainAudio2.play();
+	console.log(mainAudio.duration);
+	setTimeout(function(){mainAudio.play();}, mainAudio.duration*1000+1000);
 	mainAudio.volume=0.4;
 }
 
@@ -254,6 +264,34 @@ function timer(){
 	},1000);
 };
 
+document.getElementById("left").addEventListener("click", left);
+document.getElementById("right").addEventListener("click", right);
+function left(){
+	setTimeout(function(){
+		player.x=player.x-10;
+		requestAnimationFrame(left);
+	},40);
+}
+
+function right(){
+	setTimeout(function(){
+		player.x=player.x+10;
+		requestAnimationFrame(right);
+	},40);
+}
+
 function createBricks1(){
 	console.log(bricks);
+}
+
+function mute(){
+	if(mainAudio.volume==0.5||mainAudio2.volume==0.5){
+		document.getElementById("muteImg").src = "img/audio_muted_icon.png";
+		mainAudio.volume = 0;
+		mainAudio2.volume = 0;
+	}else{
+		document.getElementById("muteImg").src = "img/audio_icon.png";
+		mainAudio.volume = 0.5;
+		mainAudio2.volume = 0.5;
+	}
 }
