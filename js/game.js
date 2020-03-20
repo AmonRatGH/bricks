@@ -1,5 +1,6 @@
 var c = document.getElementById("bricksCanvas");
 var ctx = c.getContext("2d");
+var modal = document.getElementById("myModal");
 var lives=3;
 var bricks;
 var requiredScore;
@@ -14,6 +15,7 @@ var player={
 	y:c.height-30,
 	width: 150,
 	height: 15,
+	color: 'none',
 };
 var start=true;
 var test={
@@ -76,8 +78,8 @@ function drawPlayer(){
 			ctx.beginPath();
 			ctx.rect(player.x, player.y, player.width, player.height);
 			ctx.lineWidth=2;
-			ctx.fillStyle = "#000000";
-			ctx.strokeStyle = "gray";
+			ctx.fillStyle = player.color;
+			ctx.strokeStyle = "black";
 			ctx.fill();
 			ctx.stroke();
 		if(score!==requiredScore){
@@ -179,7 +181,8 @@ function ballMoveFunction(){
 function drawBall(){
     ctx.beginPath();
     ctx.arc(ball.x, ball.y, 8, 0, Math.PI*2);
-    ctx.fillStyle = "gray";
+	ctx.strokeStyle = "black";
+    ctx.fillStyle = "darkgray";
     ctx.fill();
     ctx.closePath();
 }
@@ -344,4 +347,20 @@ function mute(){
 		mainAudio.volume = 0.5;
 		mainAudio2.volume = 0.5;
 	}
+}
+function pickFreddie(){
+	modal.style.display = "none";
+	player.color = 'yellow';
+}
+function pickBrian(){
+	modal.style.display = "none";
+	player.color = "red";
+}
+function pickJohn(){
+	modal.style.display = "none";
+	player.color = "green";
+}
+function pickRoger(){
+	modal.style.display = "none";
+	player.color = "blue";
 }
