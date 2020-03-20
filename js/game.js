@@ -52,6 +52,7 @@ function mainFunction(){
 		ballMoveFunction();
 		clearBricks();
 		if(lives==0){
+			mainAudio.pause();
 			score=0;
 			ctx.clearRect(0,0,c.width,c.height);
 			document.getElementById("start").disabled = false;
@@ -96,50 +97,66 @@ function ballMoveFunction(){
 		ballMove.dy = -ballMove.dy;
 	}
 	if(ball.x>=player.x&&ball.x<=player.x+player.width&&ball.y>=player.y&&ball.y<=player.y+player.height){//How the ball bounces from the 'player', different area of the bar equals to different angle of the bounce
-		if(ball.x>=player.x&&ball.x<=player.x+15){
+		if(ball.x>=player.x&&ball.x<=player.x+10){
 			ballMove.dy=-1.5;
 			ballMove.dx=-4;
 		}
-		if(ball.x>=player.x+15&&ball.x<=player.x+30){
+		if(ball.x>=player.x+10&&ball.x<=player.x+20){
 			ballMove.dy=-2;
 			ballMove.dx=-3.2;
 		}
-		if(ball.x>=player.x+30&&ball.x<=player.x+45){
+		if(ball.x>=player.x+20&&ball.x<=player.x+30){
 
 			ballMove.dy=-3;
 			ballMove.dx=-3;
 		}
-		if(ball.x>=player.x+45&&ball.x<=player.x+60){
+		if(ball.x>=player.x+30&&ball.x<=player.x+40){
 			ballMove.dy=-3.5;
 			ballMove.dx=-1;
 		}
-		if(ball.x>=player.x+60&&ball.x<=player.x+70){
+		if(ball.x>=player.x+40&&ball.x<=player.x+50){
 			ballMove.dy=-4;
 			ballMove.dx=-0.5;
 		}
-		if(ball.x>=player.x+70&&ball.x<=player.x+80){
+		if(ball.x>=player.x+50&&ball.x<=player.x+60){
 			ballMove.dy=-4.3;
 			ballMove.dx=0;
 		}
-		if(ball.x>=player.x+80&&ball.x<=player.x+905){
+		if(ball.x>=player.x+60&&ball.x<=player.x+70){
 			ballMove.dy=-4;
 			ballMove.dx=0.5;
 		}
-		if(ball.x>=player.x+90&&ball.x<=player.x+105){
-			ballMove.dy=-3.5;
-			ballMove.dx=1;
-		}
-		if(ball.x>=player.x+105&&ball.x<=player.x+120){
+		if(ball.x>=player.x+70&&ball.x<=player.x+80){//sredina
 			ballMove.dy=-3;
-			ballMove.dx=3;
+			ballMove.dx=0;
 		}
-		if(ball.x>=player.x+120&&ball.x<=player.x+135){
-			ballMove.dy=2;
-			ballMove.dx=3.2;
+		if(ball.x>=player.x+80&&ball.x<=player.x+90){
+			ballMove.dy=-3;
+			ballMove.dx=-0.62;
 		}
-		if(ball.x>=player.x+135&&ball.x<=player.x+150){
-			ballMove.dy=-1.5;
-			ballMove.dx=4;
+		if(ball.x>=player.x+90&&ball.x<=player.x+100){
+			ballMove.dy=-3;
+			ballMove.dx=-1.22;
+		}
+		if(ball.x>=player.x+100&&ball.x<=player.x+110){
+			ballMove.dy=-3;
+			ballMove.dx=-1.76;
+		}
+		if(ball.x>=player.x+110&&ball.x<=player.x+120){
+			ballMove.dy=-3;
+			ballMove.dx=-2.23;
+		}
+		if(ball.x>=player.x+120&&ball.x<=player.x+130){
+			ballMove.dy=-3;
+			ballMove.dx=-2.59;
+		}
+		if(ball.x>=player.x+130&&ball.x<=player.x+140){
+			ballMove.dy=-3;
+			ballMove.dx=-2.85;
+		}
+		if(ball.x>=player.x+140&&ball.x<=player.x+150){
+			ballMove.dy=-3;
+			ballMove.dx=-2.98;
 		}
 	}
 	else if(ball.y>640){
@@ -286,7 +303,7 @@ function playTheGame(){
 	mainAudio2.play();
 	console.log(mainAudio.duration);
 	setTimeout(function(){mainAudio.play();}, mainAudio.duration*1000+1000);
-	mainAudio.volume=0.4;
+	mainAudio.volume=0.5;
 }
 
 function timer(){
@@ -302,6 +319,7 @@ function timer(){
 
 document.getElementById("left").addEventListener("click", left);
 document.getElementById("right").addEventListener("click", right);
+
 function left(){
 	setTimeout(function(){
 		player.x=player.x-10;
@@ -314,10 +332,6 @@ function right(){
 		player.x=player.x+10;
 		requestAnimationFrame(right);
 	},40);
-}
-
-function createBricks1(){
-	console.log(bricks);
 }
 
 function mute(){

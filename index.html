@@ -10,14 +10,7 @@
 		<!--<div class="title">
 			<span class="titleText">Queen Bricks</span>
 		</div> -->
-		<div class="canvasDiv">
-			<span id="score" class="score" >Score: 0</span>
-			<span id="lives" class="lives" >Lives: 3</span><br/>
-			<canvas id="bricksCanvas" width="800" height="650" ></canvas><br/>
-			<hr></hr>
-			<div class="startTextDiv" >
-				<span id="startNumbers" class="startText" ></span><br/>
-			</div>
+		<div class="all" >
 			<div class="buttons">
 				<button id="left" class="mobileArrow">&larr;</button>
 				<button id="right" class="mobileArrow">&rarr;</button><br/>
@@ -25,17 +18,25 @@
 				<button id="reset" class="button" onclick="resetGame();" >Reset</button><br/>
 				<button id="123" class="button" onclick="createBricks();clearBricks(bricks);" >Reset</button><br/>
 				<button id="12342"  class="button" onclick="createBricks1();" >Console</button><br/>
+				<img id="muteImg" class="muteBtn" src="img/audio_icon.png" alt="audio" height="40" width="40" onClick="mute();">
 			</div>
-			<img id="muteImg" class="muteBtn" src="img/audio_icon.png" alt="audio" height="40" width="40" onClick="mute();">
-		</div>
-		<div class="hintDiv">
-			<span class="hint">
-				What the items do:
-			</span>
-			<div class="hintImg">
-				<img src="img/microphone_icon.png" alt="Freddie Mercury instrument" height="40" width="40" /><span class="hints" >Bar is 2x Bigger!</span>
-				<img src="img/guitar_icon.png" alt="Brian May Guitar" height="40" width="40" /> <span class="hints" >Ball is 2x Faster!</span>
-				<img src="img/drum_icon.png" alt="Roger Taylor instrument" height="40" width="40" /><span class="hints" >Ball is 2x Bigger!</span>
+			<div class="canvasDiv">
+				<span id="score" class="score" >Score: 0</span>
+				<span id="lives" class="lives" >Lives: 3</span><br/>
+				<canvas id="bricksCanvas" width="800" height="650" ></canvas><br/>
+				<div class="startTextDiv" >
+					<span id="startNumbers" class="startText" ></span><br/>
+				</div>
+			</div>
+			<div class="hintDiv">
+				<span class="hint">
+					What the items do:
+				</span>
+				<div class="hintImg">
+					<img src="img/microphone_icon.png" alt="Freddie Mercury instrument" height="40" width="40" /><span class="hints" >Bar is 2x Bigger!</span><br/>
+					<img src="img/guitar_icon.png" alt="Brian May Guitar" height="40" width="40" /> <span class="hints" >Ball is 2x Faster!</span><br/>
+					<img src="img/drum_icon.png" alt="Roger Taylor instrument" height="40" width="40" /><span class="hints" >Ball is 2x Bigger!</span><br/>
+				</div>
 			</div>
 		</div>
 	</body>
