@@ -115,6 +115,26 @@
 .muteBtn{
 	cursor: pointer;
 }
+.selectCharacter{
+	background-color: rgba(100,72,77,1);
+	opacity:1;
+	margin-left:0.5em;
+	margin-right:0.25em;
+	text-align: center;
+	font-family: innuendo;
+	font-size: 125%;
+	border:0.25em groove black;
+	border-radius:0.25em;
+}
+.pickCharacter{
+	text-align: center;
+	font-family:innuendo;
+	font-size:175%;
+	padding: 0.2em;
+}
+.modalImg{
+	opacity:1;
+}
 
 @media (pointer:none), (pointer:coarse) {
 	.mobileArrow {
