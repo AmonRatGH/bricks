@@ -28,16 +28,17 @@
 	font-family: innunedo;
 	font-size: 150%;
 	float:right;
+	padding-right:0.4em;
 }
 .lives{
 	position:relative;
 	font-family: innunedo;
 	font-size: 150%;
 	float:left;
+	padding-left:0.4em;
 }
 .canvasDiv{
 	text-align: center;
-    width: max-content;
     border: 0.6em double gray;
 	margin-top: 1em;
 	margin-bottom: 1em;
