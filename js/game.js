@@ -6,10 +6,16 @@ var bricks;
 var requiredScore;
 var mainFun;
 var score=0;
+var freddie = new Audio('audio/freddie.wav');
+var brian = new Audio('audio/brian.wav');
+var john = new Audio('audio/john.wav');
+var roger = new Audio('audio/roger.wav');
 var mainAudio = new Audio('audio/Play_the_Game.mp3');
 var mainAudio2 = new Audio('audio/Coming_Soon.mp3');
 var coin = new Audio('audio/coin.wav');
 var level=1;
+window.onload = fadein(0);
+
 var player={
 	x:325,
 	y:c.height-30,
@@ -182,6 +188,7 @@ function drawBall(){
     ctx.beginPath();
     ctx.arc(ball.x, ball.y, 8, 0, Math.PI*2);
 	ctx.strokeStyle = "black";
+	ctx.lineWidth=2;
     ctx.fillStyle = "darkgray";
     ctx.fill();
     ctx.closePath();
@@ -349,18 +356,73 @@ function mute(){
 	}
 }
 function pickFreddie(){
-	modal.style.display = "none";
+	fadeout(100);
 	player.color = 'yellow';
 }
 function pickBrian(){
-	modal.style.display = "none";
+	fadeout(100);
 	player.color = "red";
 }
 function pickJohn(){
-	modal.style.display = "none";
+	fadeout(100);
 	player.color = "green";
 }
 function pickRoger(){
-	modal.style.display = "none";
+	fadeout(100);
 	player.color = "blue";
+}
+
+function fadeout(i){
+    time=setTimeout(function(){
+		document.getElementById("myModal").style.opacity = i/100;
+		i--;
+		fadeout(i);
+		if(i==0){
+			clearTimeout(time);
+			modal.style.display = "none";
+			return;
+		}
+	},4)
+}
+
+function fadein(i){
+    time=setTimeout(function(){
+		document.getElementById("myModal").style.opacity = i/100;
+		i++;
+		fadein(i);
+		if(i==100){
+			clearTimeout(time);
+			return;
+		}
+	},4)
+}
+
+function characterPlay(x){
+	if((brian.duration>0&&!brian.paused)||(john.duration>0&&!john.paused)||(roger.duration>0&&!roger.paused)){
+		return;
+	}
+	else if(x==0){
+		freddie.play();
+	}
+	
+	if((freddie.duration>0&&!freddie.paused)||(john.duration>0&&!john.paused)||(roger.duration>0&&!roger.paused)){
+		return;
+	}
+	else if(x==1){
+		brian.play();
+	}
+	
+	if((brian.duration>0&&!brian.paused)||(freddie.duration>0&&!freddie.paused)||(roger.duration>0&&!roger.paused)){
+		return;
+	}
+	else if(x==2){
+		john.play();
+	}
+	
+	if((brian.duration>0&&!brian.paused)||(john.duration>0&&!john.paused)||(freddie.duration>0&&!freddie.paused)){
+		return;
+	}
+	else if(x==3){
+		roger.play();
+	}
 }
