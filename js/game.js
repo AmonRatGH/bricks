@@ -1,3 +1,15 @@
+var level1Array=[
+	[0,0,0,0,3,3,3,3,3,0,0,0,0],
+	[0,0,0,3,1,1,3,1,1,3,0,0,0],
+	[0,0,3,1,1,1,3,1,1,1,3,0,0],
+	[0,3,3,3,3,3,3,3,3,3,3,3,0],
+	[3,3,3,3,3,3,3,3,3,3,3,3,3],
+	[3,3,3,3,3,3,3,3,3,3,3,3,3],
+	[3,3,2,2,3,3,3,3,3,2,2,3,3],
+	[0,0,2,2,0,0,0,0,0,2,2,0,0]
+];
+//0-poped,1-whhite,2-black
+
 var c = document.getElementById("bricksCanvas");
 var ctx = c.getContext("2d");
 var modal = document.getElementById("myModal");
@@ -58,7 +70,13 @@ function mainMainFunction(){
 function mainFunction(){
 	setTimeout(function(){
 		ballMoveFunction();
-		clearBricks();
+		switch(level){
+			case 1: clearBricks(level1Array);break;
+			case 2: clearBricks(level1Array);break;
+			case 3: clearBricks(level1Array);break;
+			case 4: clearBricks(level1Array);break;
+			case 5: clearBricks(level1Array);break;
+		}
 		if(lives==0){
 			mainAudio.pause();
 			score=0;
@@ -168,7 +186,6 @@ function ballMoveFunction(){
 		}
 	}
 	else if(ball.y>640){
-		console.log("x");
 		lives--;
 		ball.x=c.width/2;
 		ball.y=c.height-40;
@@ -211,7 +228,7 @@ function createBricks(){
 	for (var i = 0; i < bricks.length; i++) { 
 		for (var j = 0; j < bricks[i].length; j++) { 
 			var r=Math.random()*10+1;
-			if(i+j<=3||j-i>=9){
+			if(level1Array[i][j]==0){
 				bricks[i][j] = {
 					x:j*value,
 					y:i*(value/2) ,
@@ -220,7 +237,7 @@ function createBricks(){
 					size: value,
 				};
 			}
-			else if((i==6&&(j==2||j==3||j==11||j==10))||(i==7&&(j==2||j==3||j==11||j==10))){
+			else if(level1Array[i][j]==1||level1Array[i][j]==2||level1Array[i][j]==3){
 				bricks[i][j] = {
 					x:j*value+10,
 					y:i*(value/2) ,
@@ -252,20 +269,20 @@ function createBricks(){
 	return bricks;
 }
 
-function clearBricks(){
+function clearBricks(level1Array){
 	for (var k = 0; k < bricks.length; k++) { 
 		for (var l = 0; l < bricks[k].length-1; l++) { 
 			if(bricks[k][l].pop==false){
 				var r=Math.random()*10+1;
 				ctx.beginPath();
 				ctx.rect(bricks[k][l].x, bricks[k][l].y, bricks[k][l].size, 28);
-				if((k==1||k==2)&&(l==4||l==5||l==7||l==8)||(k==2&&(l==3||l==9))){
+				if(level1Array[k][l]==0||level1Array[k][l]==1){
 					ctx.fillStyle = "#ffffff";
 				}
-				else if((k==6||k==7)&&(l==2||l==3||l==10||l==11)){
+				if(level1Array[k][l]==2){
 					ctx.fillStyle = "#000000";
 				}
-				else{
+				if(level1Array[k][l]==3){
 					ctx.fillStyle = "red";
 				}
 				ctx.strokeStyle = "#000000";
