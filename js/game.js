@@ -8,6 +8,46 @@ var level1Array=[
 	[3,3,2,2,3,3,3,3,3,2,2,3,3],
 	[0,0,2,2,0,0,0,0,0,2,2,0,0]
 ];
+var level2Array=[
+	[0,0,0,0,3,3,3,3,3,0,0,0,0],
+	[0,0,0,3,1,1,3,1,1,3,0,0,0],
+	[0,0,3,1,1,1,3,1,1,1,3,0,0],
+	[0,3,3,3,3,3,3,3,3,3,3,3,0],
+	[3,3,3,3,3,3,3,3,3,3,3,3,3],
+	[3,3,3,3,3,3,3,3,3,3,3,3,3],
+	[3,3,2,2,3,3,3,3,3,2,2,3,3],
+	[0,0,2,2,0,0,0,0,0,2,2,0,0]
+];
+var level3Array=[
+	[0,0,0,0,3,3,3,3,3,0,0,0,0],
+	[0,0,0,3,1,1,3,1,1,3,0,0,0],
+	[0,0,3,1,1,1,3,1,1,1,3,0,0],
+	[0,3,3,3,3,3,3,3,3,3,3,3,0],
+	[3,3,3,3,3,3,3,3,3,3,3,3,3],
+	[3,3,3,3,3,3,3,3,3,3,3,3,3],
+	[3,3,2,2,3,3,3,3,3,2,2,3,3],
+	[0,0,2,2,0,0,0,0,0,2,2,0,0]
+];
+var level4Array=[
+	[0,0,0,0,3,3,3,3,3,0,0,0,0],
+	[0,0,0,3,1,1,3,1,1,3,0,0,0],
+	[0,0,3,1,1,1,3,1,1,1,3,0,0],
+	[0,3,3,3,3,3,3,3,3,3,3,3,0],
+	[3,3,3,3,3,3,3,3,3,3,3,3,3],
+	[3,3,3,3,3,3,3,3,3,3,3,3,3],
+	[3,3,2,2,3,3,3,3,3,2,2,3,3],
+	[0,0,2,2,0,0,0,0,0,2,2,0,0]
+];
+var level5Array=[
+	[0,0,0,0,3,3,3,3,3,0,0,0,0],
+	[0,0,0,3,1,1,3,1,1,3,0,0,0],
+	[0,0,3,1,1,1,3,1,1,1,3,0,0],
+	[0,3,3,3,3,3,3,3,3,3,3,3,0],
+	[3,3,3,3,3,3,3,3,3,3,3,3,3],
+	[3,3,3,3,3,3,3,3,3,3,3,3,3],
+	[3,3,2,2,3,3,3,3,3,2,2,3,3],
+	[0,0,2,2,0,0,0,0,0,2,2,0,0]
+];
 //0-poped,1-whhite,2-black
 
 var c = document.getElementById("bricksCanvas");
@@ -22,8 +62,7 @@ var freddie = new Audio('audio/freddie.wav');
 var brian = new Audio('audio/brian.wav');
 var john = new Audio('audio/john.wav');
 var roger = new Audio('audio/roger.wav');
-var mainAudio = new Audio('audio/Play_the_Game.mp3');
-var mainAudio2 = new Audio('audio/Coming_Soon.mp3');
+var mainAudio;
 var coin = new Audio('audio/coin.wav');
 var level=1;
 window.onload = fadein(0);
@@ -327,7 +366,7 @@ document.onkeydown = function(e) {
 	}
 }
 function playTheGame(){
-	mainAudio2.play();
+	mainAudio.play();
 	console.log(mainAudio.duration);
 	setTimeout(function(){mainAudio.play();}, mainAudio.duration*1000+1000);
 	mainAudio.volume=0.5;
@@ -362,14 +401,12 @@ function right(){
 }
 
 function mute(){
-	if(mainAudio.volume==0.5||mainAudio2.volume==0.5){
+	if(mainAudio.volume==0.5){
 		document.getElementById("muteImg").src = "img/audio_muted_icon.png";
 		mainAudio.volume = 0;
-		mainAudio2.volume = 0;
 	}else{
 		document.getElementById("muteImg").src = "img/audio_icon.png";
 		mainAudio.volume = 0.5;
-		mainAudio2.volume = 0.5;
 	}
 }
 function pickFreddie(){
@@ -420,6 +457,7 @@ function characterPlay(x){
 	}
 	else if(x==0){
 		freddie.play();
+		mainAudio = new Audio ('audio/Coming_Soon.mp3');
 	}
 	
 	if((freddie.duration>0&&!freddie.paused)||(john.duration>0&&!john.paused)||(roger.duration>0&&!roger.paused)){
@@ -427,6 +465,7 @@ function characterPlay(x){
 	}
 	else if(x==1){
 		brian.play();
+		mainAudio = new Audio ('audio/39.mp3');
 	}
 	
 	if((brian.duration>0&&!brian.paused)||(freddie.duration>0&&!freddie.paused)||(roger.duration>0&&!roger.paused)){
@@ -434,6 +473,7 @@ function characterPlay(x){
 	}
 	else if(x==2){
 		john.play();
+		mainAudio = new Audio ('audio/Play_the_Game.mp3');
 	}
 	
 	if((brian.duration>0&&!brian.paused)||(john.duration>0&&!john.paused)||(freddie.duration>0&&!freddie.paused)){
@@ -441,5 +481,6 @@ function characterPlay(x){
 	}
 	else if(x==3){
 		roger.play();
+		mainAudio = new Audio ('audio/Play_the_Game.mp3');
 	}
 }
