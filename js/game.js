@@ -1,5 +1,5 @@
 var level1Array=[
-	[0,0,0,0,3,3,3,3,3,0,0,0,0],
+	[0,0,0,0,3,3,3,3,3,0,0,0,0], //75 points
 	[0,0,0,3,1,1,3,1,1,3,0,0,0],
 	[0,0,3,1,1,1,3,1,1,1,3,0,0],
 	[0,3,3,3,3,3,3,3,3,3,3,3,0],
@@ -9,7 +9,7 @@ var level1Array=[
 	[0,0,2,2,0,0,0,0,0,2,2,0,0]
 ];
 var level2Array=[
-	[0,2,2,2,2,2,2,2,2,2,2,2,0],
+	[0,2,2,2,2,2,2,2,2,2,2,2,0], //74 points - for now... 
 	[0,2,1,1,1,1,1,1,1,1,1,2,0],
 	[0,2,1,1,1,1,1,1,1,1,1,2,0],
 	[0,2,1,1,1,1,1,1,1,1,1,2,0],
@@ -19,27 +19,27 @@ var level2Array=[
 	[2,2,2,0,0,0,0,0,0,0,2,2,2]
 ];
 var level3Array=[
-	[0,0,0,0,3,3,3,3,3,0,0,0,0],
-	[0,0,0,3,1,1,3,1,1,3,0,0,0],
-	[0,0,3,1,1,1,3,1,1,1,3,0,0],
-	[0,3,3,3,3,3,3,3,3,3,3,3,0],
-	[3,3,3,3,3,3,3,3,3,3,3,3,3],
-	[3,3,3,3,3,3,3,3,3,3,3,3,3],
-	[3,3,2,2,3,3,3,3,3,2,2,3,3],
-	[0,0,2,2,0,0,0,0,0,2,2,0,0]
+	[4,4,4,0,4,0,0,4,0,0,4,0,0], //72 points - for now....
+	[4,4,4,0,4,0,0,4,0,0,4,0,0],
+	[4,4,4,0,0,0,0,0,0,0,0,0,0],
+	[4,4,4,5,5,5,5,5,5,5,5,2,0],
+	[4,4,4,5,5,5,5,5,5,5,5,2,0],
+	[4,4,4,0,0,0,0,0,0,0,0,0,0],
+	[4,4,4,0,0,0,0,0,0,0,0,0,0],
+	[4,4,4,0,0,0,0,0,0,0,0,0,0]
 ];
 var level4Array=[
-	[0,0,0,0,3,3,3,3,3,0,0,0,0],
-	[0,0,0,3,1,1,3,1,1,3,0,0,0],
-	[0,0,3,1,1,1,3,1,1,1,3,0,0],
-	[0,3,3,3,3,3,3,3,3,3,3,3,0],
-	[3,3,3,3,3,3,3,3,3,3,3,3,3],
-	[3,3,3,3,3,3,3,3,3,3,3,3,3],
-	[3,3,2,2,3,3,3,3,3,2,2,3,3],
-	[0,0,2,2,0,0,0,0,0,2,2,0,0]
+	[0,0,0,3,3,0,0,0,3,3,0,0,4], //57 points - for now...
+	[0,0,3,3,3,3,3,3,3,3,3,2,2],
+	[0,0,3,3,3,3,3,3,3,3,2,0,4],
+	[0,0,3,3,3,3,3,3,3,3,3,0,0],
+	[0,0,0,3,3,3,3,3,3,3,0,0,0],
+	[1,0,2,2,3,3,3,3,3,0,0,0,0],
+	[2,2,0,0,0,3,3,3,0,0,0,0,0],
+	[1,0,0,0,0,0,3,0,0,0,0,0,0]
 ];
 var level5Array=[
-	[0,0,0,0,3,3,3,3,3,0,,2,2],
+	[0,0,0,0,3,3,3,3,3,0,0,2,2],
 	[0,0,0,3,1,1,3,1,1,3,0,0,0],
 	[0,0,3,1,1,1,3,1,1,1,3,0,0],
 	[0,3,3,3,3,3,3,3,3,3,3,3,0],
@@ -48,14 +48,14 @@ var level5Array=[
 	[3,3,2,2,3,3,3,3,3,2,2,3,3],
 	[0,0,2,2,0,0,0,0,0,2,2,0,0]
 ];
-//0-poped,1-white,2-black,3-red
+//0-poped,1-white,2-black,3-red, 4-gray,5-brown
 
 var c = document.getElementById("bricksCanvas");
 var ctx = c.getContext("2d");
 var modal = document.getElementById("myModal");
 var playAr;
 var drawPlayerA;
-var lives=3;
+var lives=4;
 var bricks;
 var requiredScore;
 var mainFun;
@@ -99,9 +99,9 @@ function mainMainFunction(){
 	switch(level){
 		case 1:bricks = createBricks(level1Array);requiredScore=75;playAr = level1Array;break;
 		case 2:bricks = createBricks(level2Array);requiredScore=149;playAr = level2Array;break;
-		case 3:bricks = createBricks(level3Array);requiredScore=74;playAr = level3Array;break;//not yet working
-		case 4:bricks = createBricks(level4Array);requiredScore=74;playAr = level4Array;break;//not yet working
-		case 5:bricks = createBricks(level5Array);requiredScore=74;playAr = level5Array;break;//not yet working
+		case 3:bricks = createBricks(level3Array);requiredScore=221;playAr = level3Array;break;//not yet working
+		case 4:bricks = createBricks(level4Array);requiredScore=278;playAr = level4Array;break;//not yet working
+		case 5:bricks = createBricks(level5Array);requiredScore=300;playAr = level5Array;break;//not yet working
 	}
 	document.getElementById("start").disabled = true;
 	setTimeout(function(){mainFun = requestAnimationFrame(mainFunction);},5000);
@@ -194,37 +194,37 @@ function ballMoveFunction(){
 		}
 		if(ball.x>=player.x+80&&ball.x<=player.x+90){
 			ballMove.dy=-3;
-			ballMove.dx=-0.62;
+			ballMove.dx=0.62;
 		}
 		if(ball.x>=player.x+90&&ball.x<=player.x+100){
 			ballMove.dy=-3;
-			ballMove.dx=-1.22;
+			ballMove.dx=1.22;
 		}
 		if(ball.x>=player.x+100&&ball.x<=player.x+110){
 			ballMove.dy=-3;
-			ballMove.dx=-1.76;
+			ballMove.dx=1.76;
 		}
 		if(ball.x>=player.x+110&&ball.x<=player.x+120){
 			ballMove.dy=-3;
-			ballMove.dx=-2.23;
+			ballMove.dx=2.23;
 		}
 		if(ball.x>=player.x+120&&ball.x<=player.x+130){
 			ballMove.dy=-3;
-			ballMove.dx=-2.59;
+			ballMove.dx=2.59;
 		}
 		if(ball.x>=player.x+130&&ball.x<=player.x+140){
 			ballMove.dy=-3;
-			ballMove.dx=-2.85;
+			ballMove.dx=2.85;
 		}
 		if(ball.x>=player.x+140&&ball.x<=player.x+150){
 			ballMove.dy=-3;
-			ballMove.dx=-2.98;
+			ballMove.dx=2.98;
 		}
 		if(score==requiredScore){
 			return;
 		}
 	}
-	else if(ball.y>640){
+	if(ball.y>640){
 		lives--;
 		ball.x=c.width/2;
 		ball.y=c.height-40;
@@ -285,15 +285,6 @@ function createBricks(levelArray){
 					size: value,
 				};
 			}
-			else if(i==bricks.length-1){
-				bricks[i][j] = {
-					x:j*value+10,
-					y:i*(value/2) ,
-					pop: true,
-					special: false,
-					size: value,
-				};
-			}
 			else{
 				bricks[i][j] = {
 					x:j*value+10,
@@ -308,21 +299,27 @@ function createBricks(levelArray){
 	return bricks;
 }
 
-function clearBricks(level1Array){
+function clearBricks(levelArray){
 	for (var k = 0; k < bricks.length; k++) { 
 		for (var l = 0; l < bricks[k].length-1; l++) { 
 			if(bricks[k][l].pop==false){
 				var r=Math.random()*10+1;
 				ctx.beginPath();
 				ctx.rect(bricks[k][l].x, bricks[k][l].y, bricks[k][l].size, 28);
-				if(level1Array[k][l]==0||level1Array[k][l]==1){
+				if(levelArray[k][l]==0||levelArray[k][l]==1){
 					ctx.fillStyle = "#ffffff";
 				}
-				if(level1Array[k][l]==2){
+				if(levelArray[k][l]==2){
 					ctx.fillStyle = "#000000";
 				}
-				if(level1Array[k][l]==3){
+				if(levelArray[k][l]==3){
 					ctx.fillStyle = "red";
+				}
+				if(levelArray[k][l]==4){
+					ctx.fillStyle = "gray";
+				}
+				if(levelArray[k][l]==5){
+					ctx.fillStyle = "brown";
 				}
 				ctx.strokeStyle = "#000000";
 				ctx.lineWidth="2";
