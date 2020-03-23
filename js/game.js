@@ -9,14 +9,14 @@ var level1Array=[
 	[0,0,2,2,0,0,0,0,0,2,2,0,0]
 ];
 var level2Array=[
-	[0,0,0,0,3,3,3,3,3,0,0,0,0],
-	[0,0,0,3,1,1,3,1,1,3,0,0,0],
-	[0,0,3,1,1,1,3,1,1,1,3,0,0],
-	[0,3,3,3,3,3,3,3,3,3,3,3,0],
-	[3,3,3,3,3,3,3,3,3,3,3,3,3],
-	[3,3,3,3,3,3,3,3,3,3,3,3,3],
-	[3,3,2,2,3,3,3,3,3,2,2,3,3],
-	[0,0,2,2,0,0,0,0,0,2,2,0,0]
+	[0,2,2,2,2,2,2,2,2,2,2,2,0],
+	[0,2,1,1,1,1,1,1,1,1,1,2,0],
+	[0,2,1,1,1,1,1,1,1,1,1,2,0],
+	[0,2,1,1,1,1,1,1,1,1,1,2,0],
+	[0,2,1,1,1,1,1,1,1,1,1,2,0],
+	[0,2,2,2,2,2,2,2,2,2,2,2,0],
+	[0,2,0,0,0,0,0,0,0,0,0,2,0],
+	[2,2,2,0,0,0,0,0,0,0,2,2,2]
 ];
 var level3Array=[
 	[0,0,0,0,3,3,3,3,3,0,0,0,0],
@@ -39,7 +39,7 @@ var level4Array=[
 	[0,0,2,2,0,0,0,0,0,2,2,0,0]
 ];
 var level5Array=[
-	[0,0,0,0,3,3,3,3,3,0,0,0,0],
+	[0,0,0,0,3,3,3,3,3,0,,2,2],
 	[0,0,0,3,1,1,3,1,1,3,0,0,0],
 	[0,0,3,1,1,1,3,1,1,1,3,0,0],
 	[0,3,3,3,3,3,3,3,3,3,3,3,0],
@@ -48,15 +48,18 @@ var level5Array=[
 	[3,3,2,2,3,3,3,3,3,2,2,3,3],
 	[0,0,2,2,0,0,0,0,0,2,2,0,0]
 ];
-//0-poped,1-whhite,2-black
+//0-poped,1-white,2-black,3-red
 
 var c = document.getElementById("bricksCanvas");
 var ctx = c.getContext("2d");
 var modal = document.getElementById("myModal");
+var playAr;
+var drawPlayerA;
 var lives=3;
 var bricks;
 var requiredScore;
 var mainFun;
+var ballFunction;
 var score=0;
 var freddie = new Audio('audio/freddie.wav');
 var brian = new Audio('audio/brian.wav');
@@ -94,27 +97,26 @@ var radius=8;
 function mainMainFunction(){
 	document.getElementById("score").textContent="Score: "+score;
 	switch(level){
-		case 1:bricks = createBricks();requiredScore=75;break;
-		case 2:break;
-		case 3:break;
-		case 4:break;
-		case 5:break;
+		case 1:bricks = createBricks(level1Array);requiredScore=75;playAr = level1Array;break;
+		case 2:bricks = createBricks(level2Array);requiredScore=149;playAr = level2Array;break;
+		case 3:bricks = createBricks(level3Array);requiredScore=74;playAr = level3Array;break;//not yet working
+		case 4:bricks = createBricks(level4Array);requiredScore=74;playAr = level4Array;break;//not yet working
+		case 5:bricks = createBricks(level5Array);requiredScore=74;playAr = level5Array;break;//not yet working
 	}
 	document.getElementById("start").disabled = true;
-	lives=3;
-	setTimeout(function(){mainFunction();drawPlayer();},5000);
+	setTimeout(function(){mainFun = requestAnimationFrame(mainFunction);},5000);
+	ball.x=c.width/2;
+	ball.y=c.width-40/2;
 	playTheGame();
 }
 
 function mainFunction(){
 	setTimeout(function(){
 		ballMoveFunction();
-		switch(level){
-			case 1: clearBricks(level1Array);break;
-			case 2: clearBricks(level1Array);break;
-			case 3: clearBricks(level1Array);break;
-			case 4: clearBricks(level1Array);break;
-			case 5: clearBricks(level1Array);break;
+		drawPlayer();
+		clearBricks(playAr);
+		if(score==requiredScore){
+			return;
 		}
 		if(lives==0){
 			mainAudio.pause();
@@ -123,12 +125,11 @@ function mainFunction(){
 			document.getElementById("start").disabled = false;
 			return;
 		}
-		mainFun = requestAnimationFrame(mainFunction);
+		requestAnimationFrame(mainFunction);
 	},10);
 }
 
 function drawPlayer(){
-	setTimeout(function(){
 		if(player.x>646){
 			player.x=646;
 		}
@@ -145,10 +146,6 @@ function drawPlayer(){
 			ctx.strokeStyle = "black";
 			ctx.fill();
 			ctx.stroke();
-		if(score!==requiredScore){
-			drawPlayerA = requestAnimationFrame(drawPlayer);
-		}
-	},10);
 }
 
 function ballMoveFunction(){
@@ -223,6 +220,9 @@ function ballMoveFunction(){
 			ballMove.dy=-3;
 			ballMove.dx=-2.98;
 		}
+		if(score==requiredScore){
+			return;
+		}
 	}
 	else if(ball.y>640){
 		lives--;
@@ -258,7 +258,7 @@ function resetGame(){
 	console.log(start);
 }
 
-function createBricks(){
+function createBricks(levelArray){
 	var bricks = new Array(8);
 	var value = 60;
 	for (var i = 0; i < bricks.length; i++) { 
@@ -267,7 +267,7 @@ function createBricks(){
 	for (var i = 0; i < bricks.length; i++) { 
 		for (var j = 0; j < bricks[i].length; j++) { 
 			var r=Math.random()*10+1;
-			if(level1Array[i][j]==0){
+			if(levelArray[i][j]==0){
 				bricks[i][j] = {
 					x:j*value,
 					y:i*(value/2) ,
@@ -276,7 +276,7 @@ function createBricks(){
 					size: value,
 				};
 			}
-			else if(level1Array[i][j]==1||level1Array[i][j]==2||level1Array[i][j]==3){
+			else if(levelArray[i][j]==1||levelArray[i][j]==2||levelArray[i][j]==3){
 				bricks[i][j] = {
 					x:j*value+10,
 					y:i*(value/2) ,
@@ -346,9 +346,10 @@ function clearBricks(level1Array){
 					document.getElementById("score").textContent="Score: "+score;
 					bricks[k][l].pop=true;
 					if(score==requiredScore){
-						setTimeout(function(){cancelAnimationFrame(mainFun);},20);
-						setTimeout(function(){cancelAnimationFrame(drawPlayerA);},20);
+						cancelAnimationFrame(mainFun);
+						level=2;
 						document.getElementById("score").textContent="Congratz you won!";
+						setTimeout(function(){mainMainFunction();timer();},1000);
 					}
 				}
 			}
@@ -412,18 +413,22 @@ function mute(){
 function pickFreddie(){
 	fadeout(100);
 	player.color = 'yellow';
+	mainAudio = new Audio ('audio/Bohemian_Rhapsody.mp3');
 }
 function pickBrian(){
 	fadeout(100);
 	player.color = "red";
+	mainAudio = new Audio ('audio/39.mp3');
 }
 function pickJohn(){
 	fadeout(100);
 	player.color = "green";
+	mainAudio = new Audio ('audio/Play_the_Game.mp3');
 }
 function pickRoger(){
 	fadeout(100);
 	player.color = "blue";
+	mainAudio = new Audio ('audio/Coming_Soon.mp3');
 }
 
 function fadeout(i){
@@ -457,7 +462,6 @@ function characterPlay(x){
 	}
 	else if(x==0){
 		freddie.play();
-		mainAudio = new Audio ('audio/Coming_Soon.mp3');
 	}
 	
 	if((freddie.duration>0&&!freddie.paused)||(john.duration>0&&!john.paused)||(roger.duration>0&&!roger.paused)){
@@ -465,7 +469,6 @@ function characterPlay(x){
 	}
 	else if(x==1){
 		brian.play();
-		mainAudio = new Audio ('audio/39.mp3');
 	}
 	
 	if((brian.duration>0&&!brian.paused)||(freddie.duration>0&&!freddie.paused)||(roger.duration>0&&!roger.paused)){
@@ -473,7 +476,6 @@ function characterPlay(x){
 	}
 	else if(x==2){
 		john.play();
-		mainAudio = new Audio ('audio/Play_the_Game.mp3');
 	}
 	
 	if((brian.duration>0&&!brian.paused)||(john.duration>0&&!john.paused)||(freddie.duration>0&&!freddie.paused)){
@@ -481,6 +483,5 @@ function characterPlay(x){
 	}
 	else if(x==3){
 		roger.play();
-		mainAudio = new Audio ('audio/Play_the_Game.mp3');
 	}
 }
