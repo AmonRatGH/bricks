@@ -39,16 +39,16 @@ var level4Array=[
 	[1,0,0,0,0,0,3,0,0,0,0,0,0]
 ];
 var level5Array=[
-	[0,0,0,0,3,3,3,3,3,0,0,2,2],
-	[0,0,0,3,1,1,3,1,1,3,0,0,0],
-	[0,0,3,1,1,1,3,1,1,1,3,0,0],
-	[0,3,3,3,3,3,3,3,3,3,3,3,0],
-	[3,3,3,3,3,3,3,3,3,3,3,3,3],
-	[3,3,3,3,3,3,3,3,3,3,3,3,3],
-	[3,3,2,2,3,3,3,3,3,2,2,3,3],
-	[0,0,2,2,0,0,0,0,0,2,2,0,0]
+	[0,0,2,6,2,0,2,0,2,6,2,0,0],
+	[0,2,2,6,6,2,6,2,6,6,2,2,0],
+	[0,2,6,3,6,6,3,6,6,3,6,2,0],
+	[0,2,6,6,6,6,6,6,6,6,6,2,0],
+	[0,2,6,6,1,1,1,1,1,6,6,2,0],
+	[0,2,6,1,1,1,1,1,1,1,6,2,0],
+	[0,0,2,6,6,6,6,6,6,6,2,0,0],
+	[0,0,0,2,2,2,2,2,2,2,0,0,0]
 ];
-//0-poped,1-white,2-black,3-red, 4-gray,5-brown
+//0-poped,1-white,2-black,3-red, 4-gray,5-brown,6-gold
 
 var c = document.getElementById("bricksCanvas");
 var ctx = c.getContext("2d");
@@ -61,13 +61,13 @@ var requiredScore;
 var mainFun;
 var ballFunction;
 var score=0;
-var freddie = new Audio('audio/freddie.wav');
-var brian = new Audio('audio/brian.wav');
-var john = new Audio('audio/john.wav');
-var roger = new Audio('audio/roger.wav');
+var freddie = new Audio('audio/assets/freddie.wav');
+var brian = new Audio('audio/assets/brian.wav');
+var john = new Audio('audio/assets/john.wav');
+var roger = new Audio('audio/assets/roger.wav');
 var mainAudio;
-var coin = new Audio('audio/coin.wav');
-var level=1;
+var coin = new Audio('audio/assets/coin.wav');
+var level=5;
 window.onload = fadein(0);
 
 var player={
@@ -107,7 +107,8 @@ function mainMainFunction(){
 	setTimeout(function(){mainFun = requestAnimationFrame(mainFunction);},5000);
 	ball.x=c.width/2;
 	ball.y=c.width-40/2;
-	playTheGame();
+	mainAudio.play();
+	mainAudio.volume = 0.5;
 }
 
 function mainFunction(){
@@ -244,7 +245,6 @@ function drawBall(){
     ctx.beginPath();
     ctx.arc(ball.x, ball.y, 8, 0, Math.PI*2);
 	ctx.strokeStyle = "black";
-	ctx.lineWidth=2;
     ctx.fillStyle = "darkgray";
     ctx.fill();
     ctx.closePath();
@@ -321,6 +321,9 @@ function clearBricks(levelArray){
 				if(levelArray[k][l]==5){
 					ctx.fillStyle = "brown";
 				}
+				if(levelArray[k][l]==6){
+					ctx.fillStyle = "#FFD700";
+				}
 				ctx.strokeStyle = "#000000";
 				ctx.lineWidth="2";
 				ctx.fill();
@@ -343,8 +346,9 @@ function clearBricks(levelArray){
 					document.getElementById("score").textContent="Score: "+score;
 					bricks[k][l].pop=true;
 					if(score==requiredScore){
+						audioFadeout(50);
 						cancelAnimationFrame(mainFun);
-						level=2;
+						level++;
 						document.getElementById("score").textContent="Congratz you won!";
 						setTimeout(function(){mainMainFunction();timer();},1000);
 					}
@@ -362,12 +366,6 @@ document.onkeydown = function(e) {
 		e.preventDefault()
 		player.x=player.x+10;
 	}
-}
-function playTheGame(){
-	mainAudio.play();
-	console.log(mainAudio.duration);
-	setTimeout(function(){mainAudio.play();}, mainAudio.duration*1000+1000);
-	mainAudio.volume=0.5;
 }
 
 function timer(){
@@ -410,22 +408,22 @@ function mute(){
 function pickFreddie(){
 	fadeout(100);
 	player.color = 'yellow';
-	mainAudio = new Audio ('audio/Bohemian_Rhapsody.mp3');
+	mainAudio = new Audio ('audio/songs/Bohemian_Rhapsody.mp3');
 }
 function pickBrian(){
 	fadeout(100);
 	player.color = "red";
-	mainAudio = new Audio ('audio/39.mp3');
+	mainAudio = new Audio ('audio/songs/39.mp3');
 }
 function pickJohn(){
 	fadeout(100);
 	player.color = "green";
-	mainAudio = new Audio ('audio/Play_the_Game.mp3');
+	mainAudio = new Audio ('audio/songs/Another_one_bites_the_dust.mp3');
 }
 function pickRoger(){
 	fadeout(100);
 	player.color = "blue";
-	mainAudio = new Audio ('audio/Coming_Soon.mp3');
+	mainAudio = new Audio ('audio/songs/Im_in_love_with_my_car.mp3');
 }
 
 function fadeout(i){
@@ -438,7 +436,7 @@ function fadeout(i){
 			modal.style.display = "none";
 			return;
 		}
-	},4)
+	},4);
 }
 
 function fadein(i){
@@ -451,6 +449,37 @@ function fadein(i){
 			return;
 		}
 	},4)
+}
+
+function audioFadeout(i){
+    time=setTimeout(function(){
+		mainAudio.volume=i/100;
+		i--;
+		console.log(mainAudio.volume);
+		if(i==0){
+			mainAudio.volume=0;
+			mainAudio.pause();
+			setTimeout(function(){
+				if(level==2){
+					mainAudio = new Audio('audio/songs/I_want_to_break_free.mp3');
+				}
+				else if(level==3){
+					mainAudio = new Audio('audio/songs/Somebody_to_love.mp3');
+				}
+				else if(level==4){
+					mainAudio = new Audio('audio/songs/Was_it_all_worth_it.mp3');
+				}
+				else if(level==5){
+					mainAudio = new Audio('audio/songs/The_show_must_go_on.mp3');
+				}
+				mainAudio.play();
+			},3000);
+			mainAudio.volume = 0.5;
+			clearTimeout(time);
+			return;
+		}
+		audioFadeout(i);
+	},80);
 }
 
 function characterPlay(x){
