@@ -55,7 +55,7 @@ var ctx = c.getContext("2d");
 var modal = document.getElementById("myModal");
 var playAr;
 var drawPlayerA;
-var lives=4;
+var lives=3;
 var bricks;
 var requiredScore;
 var mainFun;
@@ -67,7 +67,7 @@ var john = new Audio('audio/assets/john.wav');
 var roger = new Audio('audio/assets/roger.wav');
 var mainAudio;
 var coin = new Audio('audio/assets/coin.wav');
-var level=5;
+var level=1;
 window.onload = fadein(0);
 
 var player={
@@ -97,18 +97,23 @@ var radius=8;
 function mainMainFunction(){
 	document.getElementById("score").textContent="Score: "+score;
 	switch(level){
-		case 1:bricks = createBricks(level1Array);requiredScore=75;playAr = level1Array;break;
-		case 2:bricks = createBricks(level2Array);requiredScore=149;playAr = level2Array;break;
-		case 3:bricks = createBricks(level3Array);requiredScore=221;playAr = level3Array;break;//not yet working
-		case 4:bricks = createBricks(level4Array);requiredScore=278;playAr = level4Array;break;//not yet working
-		case 5:bricks = createBricks(level5Array);requiredScore=300;playAr = level5Array;break;//not yet working
+		case 1:bricks = createBricks(level1Array);requiredScore=1;playAr = level1Array;break;//75
+		case 2:bricks = createBricks(level2Array);requiredScore=2;playAr = level2Array;break;//149
+		case 3:bricks = createBricks(level3Array);requiredScore=3;playAr = level3Array;break;//221
+		case 4:bricks = createBricks(level4Array);requiredScore=4;playAr = level4Array;break;//278
+		case 5:bricks = createBricks(level5Array);requiredScore=5;playAr = level5Array;break;//320
+		case 6:ctx.clearRect(0,0,c.width,c.height);
 	}
 	document.getElementById("start").disabled = true;
 	setTimeout(function(){mainFun = requestAnimationFrame(mainFunction);},5000);
 	ball.x=c.width/2;
-	ball.y=c.width-40/2;
+	ball.y=c.height-40;
+	if(ballMove.dy>=0){
+		ballMove.dy=-ballMove.dy;
+	}
 	mainAudio.play();
 	mainAudio.volume = 0.5;
+	
 }
 
 function mainFunction(){
@@ -140,13 +145,13 @@ function drawPlayer(){
 		if(lives==0){
 			return;
 		}
-			ctx.beginPath();
-			ctx.rect(player.x, player.y, player.width, player.height);
-			ctx.lineWidth=2;
-			ctx.fillStyle = player.color;
-			ctx.strokeStyle = "black";
-			ctx.fill();
-			ctx.stroke();
+		ctx.beginPath();
+		ctx.rect(player.x, player.y, player.width, player.height);
+		ctx.lineWidth=2;
+		ctx.fillStyle = player.color;
+		ctx.strokeStyle = "black";
+		ctx.fill();
+		ctx.stroke();
 }
 
 function ballMoveFunction(){
@@ -225,8 +230,9 @@ function ballMoveFunction(){
 			return;
 		}
 	}
-	if(ball.y>640){
+	if(ball.y>645){
 		lives--;
+		console.log(ball.y);
 		ball.x=c.width/2;
 		ball.y=c.height-40;
 		player.x=325;
@@ -451,13 +457,12 @@ function fadein(i){
 	},4)
 }
 
-function audioFadeout(i){
+function audioFadeout(j){
     time=setTimeout(function(){
-		mainAudio.volume=i/100;
-		i--;
-		console.log(mainAudio.volume);
-		if(i==0){
-			mainAudio.volume=0;
+		--j;
+		mainAudio.volume=j/100;
+		audioFadeout(j);
+		if(j==0){
 			mainAudio.pause();
 			setTimeout(function(){
 				if(level==2){
@@ -473,13 +478,11 @@ function audioFadeout(i){
 					mainAudio = new Audio('audio/songs/The_show_must_go_on.mp3');
 				}
 				mainAudio.play();
+				mainAudio.volume = 0.5;
 			},3000);
-			mainAudio.volume = 0.5;
 			clearTimeout(time);
-			return;
 		}
-		audioFadeout(i);
-	},80);
+	},60);
 }
 
 function characterPlay(x){
