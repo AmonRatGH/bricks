@@ -9,7 +9,7 @@ var level1Array=[
 	[0,0,2,2,0,0,0,0,0,2,2,0,0]
 ];
 var level2Array=[
-	[0,2,2,2,2,2,2,2,2,2,2,2,0], //74 points - for now... 
+	[0,2,2,2,2,2,2,2,2,2,2,2,0], //80 points - for now... 
 	[0,2,1,1,1,1,1,1,1,1,1,2,0],
 	[0,2,1,1,1,1,1,1,1,1,1,2,0],
 	[0,2,1,1,1,1,1,1,1,1,1,2,0],
@@ -19,6 +19,16 @@ var level2Array=[
 	[2,2,2,0,0,0,0,0,0,0,2,2,2]
 ];
 var level3Array=[
+	[6,0,0,3,3,0,0,0,3,3,0,0,4], //57 points - for now...
+	[6,0,3,3,3,3,3,3,3,3,3,2,2],
+	[0,0,3,3,3,3,3,3,3,3,2,0,4],
+	[0,0,3,3,3,3,3,3,3,3,3,0,0],
+	[0,0,0,3,3,3,3,3,3,3,0,0,0],
+	[1,0,2,2,3,3,3,3,3,0,0,0,0],
+	[2,2,0,0,0,3,3,3,0,0,0,6,0],
+	[1,0,0,0,0,0,3,0,0,0,0,6,0]
+];
+var level4Array=[
 	[4,4,4,0,4,0,0,4,0,0,4,0,0], //72 points - for now....
 	[4,4,4,0,4,0,0,4,0,0,4,0,0],
 	[4,4,4,0,0,0,0,0,0,0,0,0,0],
@@ -27,16 +37,6 @@ var level3Array=[
 	[4,4,4,0,0,0,0,0,0,0,0,0,0],
 	[4,4,4,0,0,0,0,0,0,0,0,0,0],
 	[4,4,4,0,0,0,0,0,0,0,0,0,0]
-];
-var level4Array=[
-	[0,0,0,3,3,0,0,0,3,3,0,0,4], //57 points - for now...
-	[0,0,3,3,3,3,3,3,3,3,3,2,2],
-	[0,0,3,3,3,3,3,3,3,3,2,0,4],
-	[0,0,3,3,3,3,3,3,3,3,3,0,0],
-	[0,0,0,3,3,3,3,3,3,3,0,0,0],
-	[1,0,2,2,3,3,3,3,3,0,0,0,0],
-	[2,2,0,0,0,3,3,3,0,0,0,0,0],
-	[1,0,0,0,0,0,3,0,0,0,0,0,0]
 ];
 var level5Array=[
 	[0,0,2,6,2,0,2,0,2,6,2,0,0],
@@ -97,8 +97,8 @@ var radius=8;
 function mainMainFunction(){
 	document.getElementById("score").textContent="Score: "+score;
 	switch(level){
-		case 1:bricks = createBricks(level1Array);requiredScore=75;playAr = level1Array;break;//75
-		case 2:bricks = createBricks(level2Array);requiredScore=149;playAr = level2Array;break;//74
+		case 1:bricks = createBricks(level1Array);requiredScore=10;playAr = level1Array;break;//75
+		case 2:bricks = createBricks(level2Array);requiredScore=90;playAr = level2Array;break;//80
 		case 3:bricks = createBricks(level3Array);requiredScore=221;playAr = level3Array;break;//72
 		case 4:bricks = createBricks(level4Array);requiredScore=278;playAr = level4Array;break;//57
 		case 5:bricks = createBricks(level5Array);requiredScore=356;playAr = level5Array;break;//78
@@ -155,6 +155,7 @@ function drawPlayer(){
 }
 
 function ballMoveFunction(){
+	var bounce;
 	ctx.clearRect(0, 0, c.width, c.height);
 	drawBall();
 	if(ball.x + ballMove.dx > c.width || ball.x + ballMove.dx < 0) {
@@ -165,70 +166,29 @@ function ballMoveFunction(){
 		ballMove.dy = -ballMove.dy;
 	}
 	if(ball.x>=player.x&&ball.x<=player.x+player.width&&ball.y>=player.y&&ball.y<=player.y+player.height){//How the ball bounces from the 'player', different area of the bar equals to different angle of the bounce
-		if(ball.x>=player.x&&ball.x<=player.x+10){
-			ballMove.dy=-1.5;
-			ballMove.dx=-4;
+		if(ball.y<c.width-31){
+			if(ball.x-player.x<=75){
+				bounce=player.x-ball.x;
+				bounce=-bounce;
+			}
+			else{
+				bounce=ball.x-player.x;
+			}
+			parseInt(bounce,10);
 		}
-		if(ball.x>=player.x+10&&ball.x<=player.x+20){
-			ballMove.dy=-2;
-			ballMove.dx=-3.2;
-		}
-		if(ball.x>=player.x+20&&ball.x<=player.x+30){
-
+		if(bounce<75){
 			ballMove.dy=-3;
-			ballMove.dx=-3;
+			ballMove.dx=-(6*((75-bounce)/75));
 		}
-		if(ball.x>=player.x+30&&ball.x<=player.x+40){
-			ballMove.dy=-3.5;
-			ballMove.dx=-1;
-		}
-		if(ball.x>=player.x+40&&ball.x<=player.x+50){
-			ballMove.dy=-4;
-			ballMove.dx=-0.5;
-		}
-		if(ball.x>=player.x+50&&ball.x<=player.x+60){
-			ballMove.dy=-4.3;
-			ballMove.dx=0;
-		}
-		if(ball.x>=player.x+60&&ball.x<=player.x+70){
-			ballMove.dy=-4;
-			ballMove.dx=0.5;
-		}
-		if(ball.x>=player.x+70&&ball.x<=player.x+80){//sredina
+		else if(bounce==75){
 			ballMove.dy=-3;
 			ballMove.dx=0;
 		}
-		if(ball.x>=player.x+80&&ball.x<=player.x+90){
-			ballMove.dy=-3;
-			ballMove.dx=0.62;
+		else if(bounce>75){
+			ballMove.dy=-3
+			ballMove.dx=6*(bounce-75)/75;
 		}
-		if(ball.x>=player.x+90&&ball.x<=player.x+100){
-			ballMove.dy=-3;
-			ballMove.dx=1.22;
-		}
-		if(ball.x>=player.x+100&&ball.x<=player.x+110){
-			ballMove.dy=-3;
-			ballMove.dx=1.76;
-		}
-		if(ball.x>=player.x+110&&ball.x<=player.x+120){
-			ballMove.dy=-3;
-			ballMove.dx=2.23;
-		}
-		if(ball.x>=player.x+120&&ball.x<=player.x+130){
-			ballMove.dy=-3;
-			ballMove.dx=2.59;
-		}
-		if(ball.x>=player.x+130&&ball.x<=player.x+140){
-			ballMove.dy=-3;
-			ballMove.dx=2.85;
-		}
-		if(ball.x>=player.x+140&&ball.x<=player.x+150){
-			ballMove.dy=-3;
-			ballMove.dx=2.98;
-		}
-		if(score==requiredScore){
-			return;
-		}
+		console.log(ballMove.dx);
 	}
 	if(ball.y>645){
 		lives--;
@@ -478,6 +438,7 @@ function audioFadeout(j){
 					mainAudio = new Audio('audio/songs/The_show_must_go_on.mp3');
 				}
 				mainAudio.play();
+				mainAudio.loop;
 				mainAudio.volume = 0.5;
 			},3000);
 			clearTimeout(time);
