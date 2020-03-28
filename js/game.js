@@ -67,7 +67,7 @@ var john = new Audio('audio/assets/john.wav');
 var roger = new Audio('audio/assets/roger.wav');
 var mainAudio;
 var coin = new Audio('audio/assets/coin.wav');
-var level=5;
+var level=1;
 window.onload = fadein(0);
 
 var player={
