@@ -67,7 +67,7 @@ var john = new Audio('audio/assets/john.wav');
 var roger = new Audio('audio/assets/roger.wav');
 var mainAudio;
 var coin = new Audio('audio/assets/coin.wav');
-var level=1;
+var level=5;
 window.onload = fadein(0);
 
 var player={
@@ -97,11 +97,11 @@ var radius=8;
 function mainMainFunction(){
 	document.getElementById("score").textContent="Score: "+score;
 	switch(level){
-		case 1:bricks = createBricks(level1Array);requiredScore=1;playAr = level1Array;break;//75
-		case 2:bricks = createBricks(level2Array);requiredScore=2;playAr = level2Array;break;//149
-		case 3:bricks = createBricks(level3Array);requiredScore=3;playAr = level3Array;break;//221
-		case 4:bricks = createBricks(level4Array);requiredScore=4;playAr = level4Array;break;//278
-		case 5:bricks = createBricks(level5Array);requiredScore=5;playAr = level5Array;break;//320
+		case 1:bricks = createBricks(level1Array);requiredScore=75;playAr = level1Array;break;//75
+		case 2:bricks = createBricks(level2Array);requiredScore=149;playAr = level2Array;break;//74
+		case 3:bricks = createBricks(level3Array);requiredScore=221;playAr = level3Array;break;//72
+		case 4:bricks = createBricks(level4Array);requiredScore=278;playAr = level4Array;break;//57
+		case 5:bricks = createBricks(level5Array);requiredScore=356;playAr = level5Array;break;//78
 		case 6:ctx.clearRect(0,0,c.width,c.height);
 	}
 	document.getElementById("start").disabled = true;
