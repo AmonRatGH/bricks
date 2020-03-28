@@ -97,8 +97,8 @@ var radius=8;
 function mainMainFunction(){
 	document.getElementById("score").textContent="Score: "+score;
 	switch(level){
-		case 1:bricks = createBricks(level1Array);requiredScore=10;playAr = level1Array;break;//75
-		case 2:bricks = createBricks(level2Array);requiredScore=90;playAr = level2Array;break;//80
+		case 1:bricks = createBricks(level1Array);requiredScore=75;playAr = level1Array;break;//75
+		case 2:bricks = createBricks(level2Array);requiredScore=149;playAr = level2Array;break;//80
 		case 3:bricks = createBricks(level3Array);requiredScore=221;playAr = level3Array;break;//72
 		case 4:bricks = createBricks(level4Array);requiredScore=278;playAr = level4Array;break;//57
 		case 5:bricks = createBricks(level5Array);requiredScore=356;playAr = level5Array;break;//78
@@ -474,4 +474,14 @@ function characterPlay(x){
 	else if(x==3){
 		roger.play();
 	}
+}
+
+function cheat1(){
+	lives++;
+	document.getElementById("lives").textContent="Lives: "+lives;
+}
+
+function cheat2(){
+	lives+=99999;
+	document.getElementById("lives").textContent="Lives: "+lives;
 }
