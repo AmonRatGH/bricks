@@ -67,8 +67,13 @@ var john = new Audio('audio/assets/john.wav');
 var roger = new Audio('audio/assets/roger.wav');
 var mainAudio;
 var coin = new Audio('audio/assets/coin.wav');
-var level=4;
+var level=5;
+var img = new Image;
+img.src = "img/WinkSpriteSheet.png";
+imgx=500;
+imgy=288;
 window.onload = fadein(0);
+var drawFreddie;
 
 var player={
 	x:325,
@@ -100,9 +105,10 @@ function mainMainFunction(){
 		case 1:bricks = createBricks(level1Array);requiredScore=75;playAr = level1Array;break;//75
 		case 2:bricks = createBricks(level2Array);requiredScore=149;playAr = level2Array;break;//80
 		case 3:bricks = createBricks(level3Array);requiredScore=221;playAr = level3Array;break;//72
-		case 4:bricks = createBricks(level4Array);requiredScore=20;playAr = level4Array;break;//48
-		case 5:bricks = createBricks(level5Array);requiredScore=40;playAr = level5Array;break;//78
-		case 6:ctx.clearRect(0,0,c.width,c.height);animateScript();return;
+		case 4:bricks = createBricks(level4Array);requiredScore=269;playAr = level4Array;break;//48
+		case 5:bricks = createBricks(level5Array);requiredScore=347;playAr = level5Array;break;//78
+		case 6:ctx.clearRect(0,0,c.width,c.height);drawFreddie = setInterval(function(){drawSprite(1,0,0)},6400);
+		return;
 	}
 	document.getElementById("start").disabled = true;
 	setTimeout(function(){mainFun = requestAnimationFrame(mainFunction);},5000);
@@ -113,7 +119,10 @@ function mainMainFunction(){
 	}
 	mainAudio.play();
 	mainAudio.volume = 0.5;
-	
+	if(level==6){
+		setTimeout(function(){clearInterval(drawFreddie);ctx.clearRect(0,0,c.width,c.height);},mainAudio.duration);
+		console.log(mainAudio.duration);
+	}
 }
 
 function mainFunction(){
@@ -493,18 +502,20 @@ function cheat2(){
 	document.getElementById("lives").textContent="Lives: "+lives;
 }
 
-var tID;
-
-function animateScript() {
-	var    position = 0; 
-	const  interval = 100; 
-	const  diff = 500;     
-	tID = setInterval ( () => {document.getElementById("canvas").style.backgroundPosition = `-${position}px 0px`; 
-	if (position < 2500){ 
-		position = position + diff;
-	}
-	else{
-		position = 0; 
-	}
-	}, interval );
+function drawSprite(i,j,k){
+	time=setTimeout(function(){
+		ctx.drawImage(img,imgx*j,imgy*k,500,288,c.width/2-187.5,c.height/2-108,375,216);
+		i++;
+		j++;
+		if(j==5){
+			j=0;
+			k++;
+		}
+		drawSprite(i,j,k);
+		if(i==80){
+			clearTimeout(time);
+			return;
+		}
+	},80);
 }
+//sprite size for each frame 500*288
