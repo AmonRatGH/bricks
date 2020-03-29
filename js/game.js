@@ -19,7 +19,7 @@ var level2Array=[
 	[2,2,2,0,0,0,0,0,0,0,2,2,2]
 ];
 var level3Array=[
-	[6,0,0,3,3,0,0,0,3,3,0,0,4], //57 points - for now...
+	[6,0,0,3,3,0,0,0,3,3,0,0,4], //61 points - for now...
 	[6,0,3,3,3,3,3,3,3,3,3,2,2],
 	[0,0,3,3,3,3,3,3,3,3,2,0,4],
 	[0,0,3,3,3,3,3,3,3,3,3,0,0],
@@ -29,7 +29,7 @@ var level3Array=[
 	[1,0,0,0,0,0,3,0,0,0,0,6,0]
 ];
 var level4Array=[
-	[4,4,4,0,4,0,0,4,0,0,4,0,0], //72 points - for now....
+	[4,4,4,0,4,0,0,4,0,0,4,0,0], //48 points - for now....
 	[4,4,4,0,4,0,0,4,0,0,4,0,0],
 	[4,4,4,0,0,0,0,0,0,0,0,0,0],
 	[4,4,4,5,5,5,5,5,5,5,5,2,0],
@@ -39,7 +39,7 @@ var level4Array=[
 	[4,4,4,0,0,0,0,0,0,0,0,0,0]
 ];
 var level5Array=[
-	[0,0,2,6,2,0,2,0,2,6,2,0,0],
+	[0,0,2,6,2,0,2,0,2,6,2,0,0], //78
 	[0,2,2,6,6,2,6,2,6,6,2,2,0],
 	[0,2,6,3,6,6,3,6,6,3,6,2,0],
 	[0,2,6,6,6,6,6,6,6,6,6,2,0],
@@ -67,7 +67,7 @@ var john = new Audio('audio/assets/john.wav');
 var roger = new Audio('audio/assets/roger.wav');
 var mainAudio;
 var coin = new Audio('audio/assets/coin.wav');
-var level=1;
+var level=4;
 window.onload = fadein(0);
 
 var player={
@@ -100,9 +100,9 @@ function mainMainFunction(){
 		case 1:bricks = createBricks(level1Array);requiredScore=75;playAr = level1Array;break;//75
 		case 2:bricks = createBricks(level2Array);requiredScore=149;playAr = level2Array;break;//80
 		case 3:bricks = createBricks(level3Array);requiredScore=221;playAr = level3Array;break;//72
-		case 4:bricks = createBricks(level4Array);requiredScore=278;playAr = level4Array;break;//57
-		case 5:bricks = createBricks(level5Array);requiredScore=356;playAr = level5Array;break;//78
-		case 6:ctx.clearRect(0,0,c.width,c.height);
+		case 4:bricks = createBricks(level4Array);requiredScore=20;playAr = level4Array;break;//48
+		case 5:bricks = createBricks(level5Array);requiredScore=40;playAr = level5Array;break;//78
+		case 6:ctx.clearRect(0,0,c.width,c.height);animateScript();return;
 	}
 	document.getElementById("start").disabled = true;
 	setTimeout(function(){mainFun = requestAnimationFrame(mainFunction);},5000);
@@ -437,6 +437,13 @@ function audioFadeout(j){
 				else if(level==5){
 					mainAudio = new Audio('audio/songs/The_show_must_go_on.mp3');
 				}
+				else if(level==6){
+					mainAudio = new Audio('audio/songs/We_are_the_champions.mp3');
+					mainAudio.play();
+					mainAudio.loop;
+					mainAudio.volume = 0.5;
+					return;
+				}
 				mainAudio.play();
 				mainAudio.loop;
 				mainAudio.volume = 0.5;
@@ -484,4 +491,20 @@ function cheat1(){
 function cheat2(){
 	lives+=99999;
 	document.getElementById("lives").textContent="Lives: "+lives;
+}
+
+var tID;
+
+function animateScript() {
+	var    position = 0; 
+	const  interval = 100; 
+	const  diff = 500;     
+	tID = setInterval ( () => {document.getElementById("canvas").style.backgroundPosition = `-${position}px 0px`; 
+	if (position < 2500){ 
+		position = position + diff;
+	}
+	else{
+		position = 0; 
+	}
+	}, interval );
 }
