@@ -67,7 +67,7 @@ var john = new Audio('audio/assets/john.wav');
 var roger = new Audio('audio/assets/roger.wav');
 var mainAudio;
 var coin = new Audio('audio/assets/coin.wav');
-var level=5;
+var level=1;
 var img = new Image;
 img.src = "img/WinkSpriteSheet.png";
 imgx=500;
@@ -104,9 +104,9 @@ function mainMainFunction(){
 	switch(level){
 		case 1:bricks = createBricks(level1Array);requiredScore=75;playAr = level1Array;break;//75
 		case 2:bricks = createBricks(level2Array);requiredScore=149;playAr = level2Array;break;//80
-		case 3:bricks = createBricks(level3Array);requiredScore=221;playAr = level3Array;break;//72
-		case 4:bricks = createBricks(level4Array);requiredScore=269;playAr = level4Array;break;//48
-		case 5:bricks = createBricks(level5Array);requiredScore=347;playAr = level5Array;break;//78
+		case 3:bricks = createBricks(level3Array);requiredScore=210;playAr = level3Array;break;//72
+		case 4:bricks = createBricks(level4Array);requiredScore=258;playAr = level4Array;break;//48
+		case 5:bricks = createBricks(level5Array);requiredScore=336;playAr = level5Array;break;//78
 		case 6:ctx.clearRect(0,0,c.width,c.height);drawFreddie = setInterval(function(){drawSprite(1,0,0)},6400);
 		return;
 	}
@@ -185,8 +185,12 @@ function ballMoveFunction(){
 			}
 			parseInt(bounce,10);
 		}
-		if(bounce<75){
-			ballMove.dy=-3;
+		if(bounce<20){
+			ballMove.dy=-(3*20/75);
+			ballMove.dx=-(6*((75-20)/75));
+		}
+		else if(bounce<75&&bounce>=20){
+			ballMove.dy=-(3*bounce/75);
 			ballMove.dx=-(6*((75-bounce)/75));
 		}
 		else if(bounce==75){
@@ -194,7 +198,7 @@ function ballMoveFunction(){
 			ballMove.dx=0;
 		}
 		else if(bounce>75){
-			ballMove.dy=-3
+			ballMove.dy=-(3*(75-bounce)/75));
 			ballMove.dx=6*(bounce-75)/75;
 		}
 		console.log(ballMove.dx);
