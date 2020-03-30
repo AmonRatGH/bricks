@@ -198,7 +198,7 @@ function ballMoveFunction(){
 			ballMove.dx=0;
 		}
 		else if(bounce>75){
-			ballMove.dy=-(3*(75-bounce)/75));
+			ballMove.dy=-(3*(75-bounce)/75);
 			ballMove.dx=6*(bounce-75)/75;
 		}
 		console.log(ballMove.dx);
