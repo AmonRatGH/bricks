@@ -61,6 +61,7 @@ var requiredScore;
 var mainFun;
 var ballFunction;
 var score=0;
+var angleValue = 4;
 var freddie = new Audio('audio/assets/freddie.wav');
 var brian = new Audio('audio/assets/brian.wav');
 var john = new Audio('audio/assets/john.wav');
@@ -81,7 +82,7 @@ var drawPowerup;
 var player={
 	x:325,
 	y:c.height-30,
-	w: 150,
+	w: 0,
 	h: 15,
 	color: 'none',
 };
@@ -191,36 +192,42 @@ function ballMoveFunction(){
 	}
 	if(ball.x>=player.x&&ball.x<=player.x+player.w&&ball.y>=player.y&&ball.y<=player.y+player.h){//How the ball bounces from the 'player', different area of the bar equals to different angle of the bounce
 		if(ball.y<c.width-31){
+			
 			if(ball.x-player.x<(player.w/2)){
 				bounce=-(player.x-ball.x);
 				console.log("1 "+bounce);
 			}
 			else{
-				bounce=ball.x-player.x-(player.w/2);
+				bounce=ball.x-player.x;
 				console.log("2 "+bounce);
 			}
 			parseInt(bounce,10);
 		}
 		if(bounce<=20){
-			ballMove.dy=-(4*(20/75));
-			ballMove.dx=-(4*((75-20)/75));
+			ballMove.dy=-(angleValue*(20/75));
+			ballMove.dx=-(angleValue*((75-20)/75));
+		}
+		else if(bounce>=130){
+			ballMove.dy=(angleValue*((130-player.w/2)-player.w/2)/(player.w/2));
+			ballMove.dx=(angleValue*((130-(player.w/2))/(player.w/2)));
+			console.log(ballMove.dy);
 		}
 		else if(bounce<player.w/2&&bounce>20){
-			ballMove.dy=-(4*bounce/(player.w/2));
-			ballMove.dx=-(4*(((player.w/2)-bounce)/(player.w/2)));
+			ballMove.dy=-(angleValue*bounce/(player.w/2));
+			ballMove.dx=-(angleValue*(((player.w/2)-bounce)/(player.w/2)));
 		}
-		else if(bounce==75){
-			ballMove.dy=-4;
+		else if(bounce==(player.w/2)){
+			ballMove.dy=-angleValue;
 			ballMove.dx=0;
 		}
-		else if(bounce>75){
-			ballMove.dy=-(4*bounce/(player.w/2));
-			ballMove.dx=-(4*(((player.w/2)-bounce)/(player.w/2)));
+		else if(bounce>(player.w/2)&&bounce<130){
+			ballMove.dy=(angleValue*((bounce-player.w/2)-player.w/2)/(player.w/2));
+			ballMove.dx=(angleValue*((bounce-(player.w/2))/(player.w/2)));
+			console.log(ballMove.dy);
 		}
 	}
 	if(ball.y>645){
 		lives--;
-		console.log(ball.y);
 		ball.x=c.width/2;
 		ball.y=c.height-40;
 		player.x=325;
@@ -425,21 +432,25 @@ function mute(){
 }
 function pickFreddie(){
 	fadeout(100);
+	player.w=177;
 	player.color = 'yellow';
 	mainAudio = new Audio ('audio/songs/Bohemian_Rhapsody.mp3');
 }
 function pickBrian(){
 	fadeout(100);
+	player.w=187;
 	player.color = "red";
 	mainAudio = new Audio ('audio/songs/39.mp3');
 }
 function pickJohn(){
 	fadeout(100);
+	player.w=180;
 	player.color = "green";
 	mainAudio = new Audio ('audio/songs/Another_one_bites_the_dust.mp3');
 }
 function pickRoger(){
 	fadeout(100);
+	player.w=179;
 	player.color = "blue";
 	mainAudio = new Audio ('audio/songs/Im_in_love_with_my_car.mp3');
 }
