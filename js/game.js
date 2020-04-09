@@ -79,6 +79,11 @@ var drawFreddie;
 var paused=false;
 var drawPowerup;
 
+//timer
+var second=0;
+var minute=0;
+var endTimer=false;
+
 var player={
 	x:325,
 	y:c.height-30,
@@ -102,12 +107,12 @@ var radius=8;
 function mainMainFunction(){
 	document.getElementById("score").textContent="Score: "+score;
 	switch(level){
-		case 1:bricks = createBricks(level1Array);requiredScore=75;playAr = level1Array;break;//75
+		case 1:bricks = createBricks(level1Array);requiredScore=75;playAr = level1Array;setTimeout(function(){timerScore(0,0)},4000);break;//75
 		case 2:bricks = createBricks(level2Array);requiredScore=149;playAr = level2Array;break;//80
 		case 3:bricks = createBricks(level3Array);requiredScore=210;playAr = level3Array;break;//72
 		case 4:bricks = createBricks(level4Array);requiredScore=258;playAr = level4Array;break;//48
 		case 5:bricks = createBricks(level5Array);requiredScore=336;playAr = level5Array;break;//78
-		case 6:ctx.clearRect(0,0,c.width,c.height);drawFreddie = setInterval(function(){drawSprite(1,0,0)},6400);
+		case 6:ctx.clearRect(0,0,c.width,c.height);endTimer=true;drawFreddie = setInterval(function(){drawSprite(1,0,0)},6400);
 		return;
 	}
 	document.getElementById("start").disabled = true;
@@ -153,9 +158,11 @@ function pause(){
 	if(paused==false){
 		paused=true;
 		mainAudio.pause();
+		
 	}
 	else if(paused==true){
 		paused=false;
+		timerScore(minute,second);
 		mainAudio.play();
 	}
 }
@@ -573,3 +580,33 @@ function drawSprite(i,j,k){
 	},80);
 }
 //sprite size for each frame 500*288
+
+function timerScore(min,sec){
+	setTimeout(function(){
+		if(sec==60){
+			min++;
+			sec=0;
+		}
+		if(min<10){
+			if(sec<10){
+				document.getElementById("time").textContent="0"+min+":"+"0"+sec;
+			}else{
+				document.getElementById("time").textContent="0"+min+":"+sec;
+			}
+		}else{
+			if(sec<10){
+				console.log("no");
+				document.getElementById("time").textContent=min+":"+"0"+sec;
+			}else{
+				console.log("yes");
+				document.getElementById("time").textContent=min+":"+sec;
+			}
+		}
+		if(endTimer==true||paused==true){
+			second=sec;
+			minute=min;
+			return;
+		}
+		timerScore(min,sec+1);
+	},1000);
+}
