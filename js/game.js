@@ -159,10 +159,11 @@ function pause(){
 	if(paused==false){
 		paused=true;
 		mainAudio.pause();
-		
+		document.getElementById("pause").textContent="Resume";
 	}
 	else if(paused==true){
 		paused=false;
+		document.getElementById("pause").textContent="Pause";
 		timerScore(minute,second,milisec);
 		mainAudio.play();
 	}
@@ -586,7 +587,7 @@ function timerScore(min,sec,mil){
 	setTimeout(function(){
 		if(mil==100){
 			sec++;
-			mill=0;
+			mil=0;
 		}
 		if(sec==60){
 			min++;
