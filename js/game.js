@@ -82,6 +82,7 @@ var drawPowerup;
 //timer
 var second=0;
 var minute=0;
+var milisec=0;
 var endTimer=false;
 
 var player={
@@ -107,7 +108,7 @@ var radius=8;
 function mainMainFunction(){
 	document.getElementById("score").textContent="Score: "+score;
 	switch(level){
-		case 1:bricks = createBricks(level1Array);requiredScore=75;playAr = level1Array;setTimeout(function(){timerScore(0,0)},4000);break;//75
+		case 1:bricks = createBricks(level1Array);requiredScore=75;playAr = level1Array;setTimeout(function(){timerScore(0,0,0)},4000);break;//75
 		case 2:bricks = createBricks(level2Array);requiredScore=149;playAr = level2Array;break;//80
 		case 3:bricks = createBricks(level3Array);requiredScore=210;playAr = level3Array;break;//72
 		case 4:bricks = createBricks(level4Array);requiredScore=258;playAr = level4Array;break;//48
@@ -162,7 +163,7 @@ function pause(){
 	}
 	else if(paused==true){
 		paused=false;
-		timerScore(minute,second);
+		timerScore(minute,second,milisec);
 		mainAudio.play();
 	}
 }
@@ -581,8 +582,12 @@ function drawSprite(i,j,k){
 }
 //sprite size for each frame 500*288
 
-function timerScore(min,sec){
+function timerScore(min,sec,mil){
 	setTimeout(function(){
+		if(mil==100){
+			sec++;
+			mill=0;
+		}
 		if(sec==60){
 			min++;
 			sec=0;
@@ -605,8 +610,9 @@ function timerScore(min,sec){
 		if(endTimer==true||paused==true){
 			second=sec;
 			minute=min;
+			milisec=mil;
 			return;
 		}
-		timerScore(min,sec+1);
-	},1000);
+		timerScore(min,sec,mil+1);
+	},10);
 }
