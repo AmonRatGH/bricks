@@ -1,5 +1,5 @@
 html{
-	background-color: white;
+	background-color: lightgray;
 }
 @font-face{
 	font-family: innuendo;
@@ -7,6 +7,10 @@ html{
 }
 #pauseDiv{
 	display: none;
+}
+.muteImgDiv{
+	display: table;
+	margin: 0 auto;
 }
 .all{
 	display:flex;
@@ -44,6 +48,7 @@ html{
 	padding-left:0.4em;
 }
 .canvasDiv{
+	background-color: white;
 	text-align: center;
     border: 0.6em double gray;
 	margin-top: 1em;
@@ -69,6 +74,7 @@ html{
 
 }
 .buttons{
+	background-color: white;
 	margin:auto;
 	margin:1em;
 	border: 0.5em double gray;
@@ -85,11 +91,18 @@ html{
 	cursor: pointer;
 }
 .hintDiv{
+	background-color: white;
     border-radius: 0.3em;
     border: 0.6em double gray;
     width: max-content;
     margin: auto;
 	margin:1em;
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 .hint{
     padding: 0.2em;
@@ -107,6 +120,7 @@ html{
 	height:2em;
 }
 .copyright{
+	color: white;
 	position: fixed;
 	bottom: 0;
 	right: 0;
@@ -137,7 +151,7 @@ html{
 .timer{
 	display:table;
 	margin:0 auto;
-	margin-top:	13.5em;
+	margin-top:	15.1em;
 	font-size: 175%;
 	font-family: innuendo;
 }
