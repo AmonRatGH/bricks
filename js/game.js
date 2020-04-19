@@ -9,14 +9,14 @@ var level1Array=[
 	[0,0,2,2,0,0,0,0,0,2,2,0,0]
 ];
 var level2Array=[
-	[0,2,2,2,2,2,2,2,2,2,2,2,0], //80 points - for now... 
-	[0,2,1,1,1,1,1,1,1,1,1,2,0],
-	[0,2,1,1,1,1,1,1,1,1,1,2,0],
-	[0,2,1,1,1,1,1,1,1,1,1,2,0],
-	[0,2,1,1,1,1,1,1,1,1,1,2,0],
-	[0,2,2,2,2,2,2,2,2,2,2,2,0],
-	[0,2,0,0,0,0,0,0,0,0,0,2,0],
-	[2,2,2,0,0,0,0,0,0,0,2,2,2]
+	[2,2,2,2,2,2,2,2,2,2,2,2,2], //104 points - for now... 
+	[2,1,1,1,1,1,1,1,1,1,1,1,2],
+	[2,2,2,2,2,2,2,2,2,2,2,2,2],
+	[2,1,1,1,1,1,1,1,1,1,1,1,2],
+	[2,2,2,2,2,2,2,2,2,2,2,2,2],
+	[2,1,1,1,1,1,1,1,1,1,1,1,2],
+	[2,2,2,2,2,2,2,2,2,2,2,2,2],
+	[2,1,1,1,1,1,1,1,1,1,1,1,2]
 ];
 var level3Array=[
 	[6,0,0,3,3,0,0,0,3,3,0,0,4], //61 points - for now...
@@ -109,10 +109,10 @@ function mainMainFunction(){
 	document.getElementById("score").textContent="Score: "+score;
 	switch(level){
 		case 1:bricks = createBricks(level1Array);requiredScore=75;playAr = level1Array;setTimeout(function(){timerScore(0,0,0)},4000);break;//75
-		case 2:bricks = createBricks(level2Array);requiredScore=149;playAr = level2Array;break;//80
-		case 3:bricks = createBricks(level3Array);requiredScore=210;playAr = level3Array;break;//72
-		case 4:bricks = createBricks(level4Array);requiredScore=258;playAr = level4Array;break;//48
-		case 5:bricks = createBricks(level5Array);requiredScore=336;playAr = level5Array;break;//78
+		case 2:bricks = createBricks(level2Array);requiredScore=173;playAr = level2Array;break;//104
+		case 3:bricks = createBricks(level3Array);requiredScore=245;playAr = level3Array;break;//72
+		case 4:bricks = createBricks(level4Array);requiredScore=293;playAr = level4Array;break;//48
+		case 5:bricks = createBricks(level5Array);requiredScore=371;playAr = level5Array;break;//78
 		case 6:ctx.clearRect(0,0,c.width,c.height);endTimer=true;drawFreddie = setInterval(function(){drawSprite(1,0,0)},6400);
 		return;
 	}
