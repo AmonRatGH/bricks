@@ -1,3 +1,6 @@
+html{
+	background-color: white;
+}
 @font-face{
 	font-family: innuendo;
 	src: url('../font/baskvill.ttf');
