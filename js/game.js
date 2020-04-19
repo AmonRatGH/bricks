@@ -15,8 +15,8 @@ var level2Array=[
 	[2,1,1,1,1,1,1,1,1,1,1,1,2],
 	[2,2,2,2,2,2,2,2,2,2,2,2,2],
 	[2,1,1,1,1,1,1,1,1,1,1,1,2],
-	[2,2,2,2,2,2,2,2,2,2,2,2,2],
-	[2,1,1,1,1,1,1,1,1,1,1,1,2]
+	[2,1,1,2,2,1,2,1,1,2,1,2,2],
+	[2,2,2,2,2,2,2,2,2,2,2,2,2]
 ];
 var level3Array=[
 	[6,0,0,3,3,0,0,0,3,3,0,0,4], //61 points - for now...
@@ -106,18 +106,20 @@ var ballMove={
 var radius=8;
 
 function mainMainFunction(){
+	document.getElementById("startDiv").style.display="none"; 
+	document.getElementById("pauseDiv").style.display="block";
 	document.getElementById("score").textContent="Score: "+score;
 	switch(level){
-		case 1:bricks = createBricks(level1Array);requiredScore=75;playAr = level1Array;setTimeout(function(){timerScore(0,0,0)},4000);break;//75
-		case 2:bricks = createBricks(level2Array);requiredScore=173;playAr = level2Array;break;//104
-		case 3:bricks = createBricks(level3Array);requiredScore=245;playAr = level3Array;break;//72
-		case 4:bricks = createBricks(level4Array);requiredScore=293;playAr = level4Array;break;//48
-		case 5:bricks = createBricks(level5Array);requiredScore=371;playAr = level5Array;break;//78
-		case 6:ctx.clearRect(0,0,c.width,c.height);endTimer=true;drawFreddie = setInterval(function(){drawSprite(1,0,0)},6400);
+		case 1:bricks = createBricks(level1Array);requiredScore=75;playAr=level1Array;setTimeout(function(){document.getElementById("levelName").style.display= "inline"},5000);setTimeout(function(){timerScore(0,0,0)},4000);break;//75
+		case 2:bricks = createBricks(level2Array);requiredScore=173;playAr=level2Array;setTimeout(function(){document.getElementById("levelName").textContent="Action this day!";document.getElementById("levelName").style.display= "inline"},5000);break;//104
+		case 3:bricks = createBricks(level3Array);requiredScore=245;playAr=level3Array;setTimeout(function(){document.getElementById("levelName").textContent="One year of love";document.getElementById("levelName").style.display= "inline"},5000);break;//72
+		case 4:bricks = createBricks(level4Array);requiredScore=293;playAr=level4Array;setTimeout(function(){document.getElementById("levelName").textContent="Hammer to fall";document.getElementById("levelName").style.display= "inline"},5000);break;//48
+		case 5:bricks = createBricks(level5Array);requiredScore=371;playAr=level5Array;setTimeout(function(){document.getElementById("levelName").textContent="March of the black queen";document.getElementById("levelName").style.display= "inline"},5000);break;//78
+		case 6:ctx.clearRect(0,0,c.width,c.height);endTimer=true;drawFreddie = setInterval(function(){drawSprite(1,0,0)},6400);setTimeout(function(){document.getElementById("levelName").textContent="Now you finally appreciate Queen music :)";document.getElementById("levelName").style.display= "inline"},5000);
 		return;
 	}
-	document.getElementById("start").disabled = true;
-	setTimeout(function(){mainFun = requestAnimationFrame(mainFunction);},5000);
+	setTimeout(function(){document.getElementById("pause").disabled=false;
+	document.getElementById("pause").style.cursor="pointer";mainFun = requestAnimationFrame(mainFunction);},5000);
 	ball.x=c.width/2;
 	ball.y=c.height-40;
 	if(ballMove.dy>=0){
@@ -364,6 +366,7 @@ function clearBricks(levelArray){
 						setTimeout(dropPowerup(bricks[k][l].x,bricks[k][l].y),10);
 					}
 					if(score==requiredScore){
+						document.getElementById("levelName").style.display= "none";
 						audioFadeout(50);
 						cancelAnimationFrame(mainFun);
 						level++;
@@ -383,12 +386,17 @@ function getRandomInt(min, max) {
 
 function dropPowerup(x,y){
 	setTimeout(function(){
-		ctx.drawImage(powerup,x,y,32,32);
-		y=y+2;
-		if(y==player.y||y>=c.height){
-			return;
+		if(paused==true){
+			dropPowerup(x,y);
 		}
-		dropPowerup(x,y);
+		else{
+			ctx.drawImage(powerup,x,y,32,32);
+			y=y+2;
+			if(y==player.y||y>=c.height){
+				return;
+			}
+			dropPowerup(x,y);
+		}
 	},10);
 }
 document.onkeydown = function(e) {
@@ -413,8 +421,8 @@ function timer(){
 	},1000);
 };
 
-document.getElementById("left").addEventListener("click", left);
-document.getElementById("right").addEventListener("click", right);
+//document.getElementById("left").addEventListener("click", left);
+//document.getElementById("right").addEventListener("click", right);
 
 function left(){
 	setTimeout(function(){

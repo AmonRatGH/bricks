@@ -14,18 +14,22 @@
 		<div class="all" >
 			<div class="buttons">
 				<button id="left" class="mobileArrow">&larr;</button>
-				<button id="right" class="mobileArrow">&rarr;</button><br/>
-				<button id="start" class="button" onclick="mainMainFunction();timer();" >Start</button><br/>
-				<button id="reset" class="button" onclick="resetGame();" >Reset</button><br/>
+				<button id="right" class="mobileArrow">&rarr;</button><br/> 
+				<div id="startDiv">
+					<button id="start" class="button" onclick="mainMainFunction();timer();" >Start</button><br/>
+				</div>
+				<div id="pauseDiv">
+					<button id="pause"  class="pause" onclick="pause();" disabled>Pause</button><br/>
+				</div>
 				<button id="123" class="button" onclick="createBricks();clearBricks(bricks);" >Reset</button><br/>
 				<button id="cheat1"  class="button" onclick="cheat1();" >Add 1 Life!</button><br/>
 				<button id="cheat1"  class="button" onclick="cheat2();" >Add 99999 Lives!</button><br/>
-				<button id="pause"  class="button" onclick="pause();" >Pause</button><br/>
-				<img id="muteImg" class="muteBtn" src="img/audio_icon.png" alt="audio" height="40" width="40" onClick="mute();"><br/>
-				<span id="time" class="timer" >00:00</span>
+				<img id="muteImg" class="muteBtn" src="img/audio_icon.png" alt="audio" height="40" width="40" onClick="mute();"><br/> 
+				<span id="time" class="timer" >00:00</span> 
 			</div>
 			<div class="canvasDiv">
 				<span id="score" class="score" >Score: 0</span>
+				<span id="levelName" class="levelName" >I'm in love with my car!</span>
 				<span id="lives" class="lives" >Lives: 3</span><br/>
 				<canvas id="bricksCanvas" width="800" height="650" ></canvas><br/>
 				<div class="startTextDiv" >
@@ -38,8 +42,8 @@
 				</span>
 				<div class="hintImg">
 					<img src="img/microphone_icon.png" alt="Freddie Mercury instrument" height="40" width="40" /><span class="hints" >Bar is 2x Bigger!</span><br/>
-					<img src="img/guitar_icon.png" alt="Brian May Guitar" height="40" width="40" /> <span class="hints" >Ball is 2x Faster!</span><br/>
-					<img src="img/drum_icon.png" alt="Roger Taylor instrument" height="40" width="40" /><span class="hints" >Ball is 2x Bigger!</span><br/>
+					<img src="img/guitar_icon.png" alt="Brian May Guitar" height="40" width="40" /> <span class="hints" >Ball is 1-2x Faster!</span><br/>
+					<img src="img/drum_icon.png" alt="Roger Taylor instrument" height="40" width="40" /><span class="hints" >Bar is 1.25x Bigger!</span><br/>
 				</div>
 			</div>
 		</div>

@@ -2,6 +2,9 @@
 	font-family: innuendo;
 	src: url('../font/baskvill.ttf');
 }
+#pauseDiv{
+	display: none;
+}
 .all{
 	display:flex;
 	justify-content: center;
@@ -70,20 +73,13 @@
 }
 .button{
 	font-family: innuendo;
-	font-size: 105%;
+	font-size: 110%;
 	background-color:lightblue;
 	margin:0.1em;
-	width:20em;
+	width:19.1em;
 	border-radius:0.2em;
 	border:0.2em solid black;
 	cursor: pointer;
-}
-.play{
-	margin-top: 1em;
-	margin-bottom: 1em;
-	width: max-content;
-	border: 0.4em double gray;
-	border-radius: 0.3em;
 }
 .hintDiv{
     border-radius: 0.3em;
@@ -141,6 +137,21 @@
 	margin-top:	13.5em;
 	font-size: 175%;
 	font-family: innuendo;
+}
+.pause{
+	button: disabled;
+	font-family: innuendo;
+	font-size: 110%;
+	background-color:lightblue;
+	margin:0.1em;
+	width:19.1em;
+	border-radius:0.2em;
+	border:0.2em solid black;
+}
+.levelName{
+	display: none;
+	font-family: innuendo;
+	font-size: 150%;
 }
 
 @media (pointer:none), (pointer:coarse) {
