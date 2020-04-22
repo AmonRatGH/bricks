@@ -172,8 +172,8 @@ function pause(){
 }
 
 function drawPlayer(){
-		if(player.x>646){
-			player.x=646;
+		if(player.x>c.width-player.w){
+			player.x=c.width-player.w;
 		}
 		if(player.x<0){
 			player.x=2;
@@ -363,7 +363,7 @@ function clearBricks(levelArray){
 							case 2:powerup.src = "img/drum_icon.png";
 							default:powerup.src = "img/drum_icon.png";
 						}
-						setTimeout(dropPowerup(bricks[k][l].x,bricks[k][l].y),10);
+						//setTimeout(dropPowerup(bricks[k][l].x,bricks[k][l].y),10);
 					}
 					if(score==requiredScore){
 						document.getElementById("levelName").style.display= "none";
