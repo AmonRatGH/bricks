@@ -609,10 +609,8 @@ function timerScore(min,sec,mil){
 			}
 		}else{
 			if(sec<10){
-				console.log("no");
 				document.getElementById("time").textContent=min+":"+"0"+sec;
 			}else{
-				console.log("yes");
 				document.getElementById("time").textContent=min+":"+sec;
 			}
 		}
