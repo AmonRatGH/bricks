@@ -111,10 +111,10 @@ function mainMainFunction(){
 	document.getElementById("score").textContent="Score: "+score;
 	switch(level){
 		case 1:bricks = createBricks(level1Array);requiredScore=75;playAr=level1Array;setTimeout(function(){document.getElementById("levelName").style.display= "inline"},5000);setTimeout(function(){timerScore(0,0,0)},4000);break;//75
-		case 2:bricks = createBricks(level2Array);requiredScore=173;playAr=level2Array;setTimeout(function(){document.getElementById("levelName").textContent="Action this day!";document.getElementById("levelName").style.display= "inline"},5000);break;//104
-		case 3:bricks = createBricks(level3Array);requiredScore=245;playAr=level3Array;setTimeout(function(){document.getElementById("levelName").textContent="One year of love";document.getElementById("levelName").style.display= "inline"},5000);break;//72
-		case 4:bricks = createBricks(level4Array);requiredScore=293;playAr=level4Array;setTimeout(function(){document.getElementById("levelName").textContent="Hammer to fall";document.getElementById("levelName").style.display= "inline"},5000);break;//48
-		case 5:bricks = createBricks(level5Array);requiredScore=371;playAr=level5Array;setTimeout(function(){document.getElementById("levelName").textContent="March of the black queen";document.getElementById("levelName").style.display= "inline"},5000);break;//78
+		case 2:bricks = createBricks(level2Array);requiredScore=179;playAr=level2Array;setTimeout(function(){document.getElementById("levelName").textContent="Action this day!";document.getElementById("levelName").style.display= "inline"},5000);break;//104
+		case 3:bricks = createBricks(level3Array);requiredScore=240;playAr=level3Array;setTimeout(function(){document.getElementById("levelName").textContent="One year of love";document.getElementById("levelName").style.display= "inline"},5000);break;//72
+		case 4:bricks = createBricks(level4Array);requiredScore=288;playAr=level4Array;setTimeout(function(){document.getElementById("levelName").textContent="Hammer to fall";document.getElementById("levelName").style.display= "inline"},5000);break;//48
+		case 5:bricks = createBricks(level5Array);requiredScore=366;playAr=level5Array;setTimeout(function(){document.getElementById("levelName").textContent="March of the black queen";document.getElementById("levelName").style.display= "inline"},5000);break;//78
 		case 6:ctx.clearRect(0,0,c.width,c.height);endTimer=true;drawFreddie = setInterval(function(){drawSprite(1,0,0)},6400);setTimeout(function(){document.getElementById("levelName").textContent="Now you finally appreciate Queen music :)";document.getElementById("levelName").style.display= "inline"},5000);
 		return;
 	}
